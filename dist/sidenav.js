@@ -13,7 +13,7 @@
             link: function($scope, element, attrs) {
 
                 if($scope.width) {
-                    angular.element(element).css('width',$scope.width + 'px');
+                    angular.element(element[0].querySelector('fs-sidenav-side')).css('width',$scope.width + 'px');
                 }
 
                 var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
