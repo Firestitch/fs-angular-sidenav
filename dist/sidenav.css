@@ -14,17 +14,21 @@ fs-sidenav fs-sidenav-side {
     min-height: 400px;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item {
+fs-sidenav fs-sidenav-side a {
     display: block;
     padding: 10px;
     margin-bottom: 10px;
     cursor: pointer;
+    border-bottom: 1px solid transparent;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item:hover {
+fs-sidenav fs-sidenav-side a:hover {
     background-color: #F6F6F6;
 }
 
+fs-sidenav fs-sidenav-side a.fs-selected {
+    border-bottom-color: #E1E1E1;
+}
 
 fs-sidenav fs-sidenav-content {
     border-left: 1px solid #E1E1E1; 
@@ -37,6 +41,10 @@ fs-sidenav fs-sidenav-content {
     box-sizing: border-box;
 }
 
-fs-sidenav fs-sidenav-content fs-sidenav-item {
+fs-sidenav fs-sidenav-side > a[fs-disabled] {
+    color: #ccc;
+}
+
+fs-sidenav fs-sidenav-content > div[fs-id] {
     display: none;
 }
