@@ -23,6 +23,11 @@ angular
     .state('404', {
         templateUrl: 'views/404.html',
         controller: 'DemoCtrl'
+    })
+
+    .state('page', {
+        url: '/page',
+        templateUrl: 'views/page.html'
     });
 
 })

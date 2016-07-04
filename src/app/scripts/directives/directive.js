@@ -2,137 +2,88 @@
     'use strict';
 
     angular.module('fs-angular-sidenav',[])
-    .directive('fsSidenav', function() {
+    .directive('fsSidenav', function($compile) {
         return {
             restrict: 'E',
             scope: {
                 selected: '=fsSelected',
                 width: '=fsWidth'
             },
-            link: function($scope, element, attrs) {
 
-                if($scope.width) {
-                    angular.element(element[0].querySelector('fs-sidenav-side')).css('width',$scope.width + 'px');
+            controller: function($scope) {
+
+              $scope.sideClick = function($event,id,click) {
+                
+                
+                if(click) {
+                  var result = $scope.$parent.$eval(click,{ $event: $event });
+
+                  if(result===false) {
+                      return;
+                  }
                 }
 
-                var items = element[0].querySelectorAll('fs-sidenav-side a');
+                $scope.selected = id;
+              }
+            },
+
+            compile: function(element) {
+
+                var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
               
                 angular.forEach(items,function(item,index) {
 
                     var el = angular.element(item);
+                    var id = el.attr('fs-id') ? el.attr('fs-id') : 'id_' + guid();
+                    var a = angular.element('<a>').attr('fs-id',id);
 
-                    if(el.attr("fs-href")) {
-                        el.attr('href',el.attr("fs-href"));
+                    if(el.attr('fs-href')) {
+                      a.attr('href',el.attr("fs-href"));
+                    } else {
+
+                      a.attr('ng-click','sideClick($event,\'' + id + '\',\'' + el.attr('fs-click') + '\')')
+                      .attr('ng-class','{ selected: selected==\'' + id + '\'}');
                     }
 
-                    if(!el.attr("fs-id")) {
-                        el.attr('fs-id','fs-id-' + Math.round((new Date()).getTime()/(index + 1)));
-                    }
+                    el.replaceWith(a.append(el.html()));
+                });
 
-                    el.on('click',function(e) {
+                var items = element[0].querySelectorAll('fs-sidenav-content fs-sidenav-item');
 
-                        var el = angular.element(this);
-                       
-                        if(el.attr('fs-click')) {
-                            var result = $scope.$parent.$eval(el.attr('fs-click'),{ $event: e });
+                angular.forEach(items,function(item,index) {
+                    angular.element(item).attr('ng-show','selected==\'' + angular.element(item).attr('fs-id') + '\'');
+                });
 
-                            if(result===false) {
-                                return;
-                            }
-                        }
-
-                        $scope.$apply(function() {
-                            $scope.selected = el.attr('fs-id');
-                        });
+                function guid() {
+                    return 'xxxxxx'.replace(/[xy]/g, function(c) {
+                        var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+                        return v.toString(16);
                     });
-                });
-
-                $scope.$watch('selected',function(selected) {
-                    select(selected);
-                });
-
-                function select(id) {                    
-
-                    var item = element[0].querySelector('fs-sidenav-side > a[fs-id="' + id + '"][fs-disabled]');
-
-                    if(item) {
-                        return;
-                    }
-
-                    angular.element(element[0].querySelectorAll('fs-sidenav-side a')).removeClass('fs-selected');
-                    angular.element(element[0].querySelectorAll('fs-sidenav-side a[fs-id="' + id + '"]')).addClass('fs-selected');
-
-                    angular.element(element[0].querySelectorAll('fs-sidenav-content > div[fs-id]'))
-                        .removeClass('fs-selected')
-                        .css('display','none');
-
-                    var item = element[0].querySelector('fs-sidenav-content > div[fs-id="' + id + '"]');
-
-                    if(item) {
-                        angular.element(item)
-                            .addClass('fs-selected')
-                            .css('display','block');
-                    }   
                 }
 
-                // HACK: to get the pallette's colors
-                function getRGB(input) {
+                return { post: function($scope, element, attrs) {
 
-                  var themeProvider = fsTabnavTheme.themeColors;
+                  if($scope.width) {
+                      angular.element(element[0].querySelector('fs-sidenav-side')).css('width',$scope.width + 'px');
+                  }
 
-                  var themeName     = 'default';
-                  var hueName       = 'default';
-                  var intentionName = 'primary';
-                  var hueKey,theme,hue,intention;
-                  var shades = {
-                    '50' :'50' ,'100':'100','200':'200','300':'300','400':'400',
-                    '500':'500','600':'600','700':'700','800':'800','A100':'A100',
-                    'A200':'A200','A400':'A400','A700':'A700'
-                  };
-                  var intentions = {
-                    primary:'primary',
-                    accent:'accent',
-                    warn:'warn',
-                    background:'background'
-                  };
-                  var hues = {
-                    'default':'default',
-                    'hue-1':'hue-1',
-                    'hue-2':'hue-2',
-                    'hue-3':'hue-3'
-                  };
+                  var items = element[0].querySelectorAll('fs-sidenav-side');
+            
+                  angular.forEach(items,function(item,index) {
 
-                  // Do our best to parse out the attributes
-                  angular.forEach(input.split(' '), function(value, key) {
-                    if (0 === key && 'default' === value) {
-                      themeName = value;
-                    } else
-                    if (intentions[value]) {
-                      intentionName = value;
-                    } else if (hues[value]) {
-                      hueName = value;
-                    } else if (shades[value]) {
-                      hueKey = value;
+                    var el = angular.element(item);
+                  
+                    if(!el.attr('fs-href')) {
+                      $compile(el.contents())($scope);
                     }
                   });
 
-                  // Lookup and assign the right values
-                  if ((theme = themeProvider._THEMES[themeName])) {
-
-                    if ((intention = theme.colors[intentionName]) ) {
-
-
-                      if (!hueKey) {
-                        hueKey = intention.hues[hueName];
-                      }
-                      if ((hue = themeProvider._PALETTES[intention.name][hueKey]) ) {
-                        return 'rgb('+hue.value[0]+','+hue.value[1]+','+hue.value[2]+')';                      
-                      }
-                    }
-                  }
-                }                
+                  var content = element[0].querySelector('fs-sidenav-content');
+                  $compile(angular.element(content))($scope);                 
+              }
             }
-        };
+          }
+        }
     });
 })();
 
