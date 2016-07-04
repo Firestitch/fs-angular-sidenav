@@ -49,3 +49,11 @@ fs-sidenav fs-sidenav-content {
     flex: 1;
     box-sizing: border-box;
 }
+
+fs-sidenav fs-sidenav-content fs-sidenav-item {
+    display: none;
+}
+
+fs-sidenav fs-sidenav-content fs-sidenav-item.selected {
+    display: block;
+}

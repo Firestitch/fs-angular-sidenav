@@ -7,6 +7,9 @@
   	$scope.click = function(event) {
   		alert('clicked');
   	}
+
+  	$scope.selected = 'types';
+  	$scope.hello = 'Hello!';
     
 });
 
