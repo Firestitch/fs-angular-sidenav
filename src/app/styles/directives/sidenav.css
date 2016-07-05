@@ -9,34 +9,37 @@ fs-sidenav {
 fs-sidenav fs-sidenav-side {
     border-right: 1px solid #E1E1E1; 
     width: 200px;
+    min-width: 200px;
     display: block;
     padding: 0px 0 15px 15px;
     min-height: 400px;
 }
 
-fs-sidenav fs-sidenav-side a {
-    display: block;
-    padding: 14px;
+fs-sidenav fs-sidenav-side fs-sidenav-item {
+    display: block;    
     cursor: pointer;
 }
 
-fs-sidenav fs-sidenav-side a {
+fs-sidenav fs-sidenav-side fs-sidenav-item a {
     color: inherit;
     text-decoration: inherit;
+    display: block;
 }
 
-fs-sidenav fs-sidenav-side a:hover {
-    background-color: #F6F6F6;
+fs-sidenav fs-sidenav-side fs-sidenav-item > a {
+    padding: 14px;  
 }
 
+fs-sidenav fs-sidenav-side fs-sidenav-item:hover > a {
+    background-color: #ECECEC;
+}
 
-
-fs-sidenav fs-sidenav-side a[fs-disabled] {
+fs-sidenav fs-sidenav-side fs-sidenav-item[fs-disabled] {
     color: #ccc;
 }
 
-fs-sidenav fs-sidenav-side a.selected {
-    background-color: #F6F6F6;
+fs-sidenav fs-sidenav-side fs-sidenav-item.selected > a {
+    background-color: #ECECEC;
 }
 
 fs-sidenav fs-sidenav-content {
@@ -54,6 +57,21 @@ fs-sidenav fs-sidenav-content fs-sidenav-item {
     display: none;
 }
 
-fs-sidenav fs-sidenav-content fs-sidenav-item.selected {
+fs-sidenav fs-sidenav-content fs-sidenav-item.selected,
+fs-sidenav fs-sidenav-side fs-sidenav-subitem.selected {
     display: block;
+}
+
+fs-sidenav fs-sidenav-subitem {
+    display: block;
+    padding: 15px 13px 0;
+    transform: scale(.85);
+}
+
+fs-sidenav fs-sidenav-subitem:last-child {
+    padding-bottom: 14px;
+}
+
+fs-sidenav fs-sidenav-subitem {
+    display: none;
 }

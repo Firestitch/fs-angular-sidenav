@@ -13,7 +13,7 @@
           controller: function($scope) {
 
             $scope.sideClick = function($event,id,click) {
-              debugger;
+             
               if(click) {
                 var result = $scope.$parent.$eval(click,{ $event: $event });
 
@@ -46,18 +46,34 @@
                 var el = angular.element(item);
                 var id = el.attr('fs-id') ? el.attr('fs-id') : 'id_' + guid();
                 var a = angular.element('<a>').attr('fs-id',id);
+                var text = angular.element(el.contents()[0]);
 
                 if(el.attr('fs-href')) {
                   a.attr('href',el.attr("fs-href"));
-                } else {
-
-                  var click = el.attr('fs-click') ? el.attr('fs-click').replace(/'/g, "\\'") : '';
-
-                  a.attr('ng-click','sideClick($event,\'' + id + '\',\'' + click + '\')')
-                  .attr('ng-class','{ selected: selected==\'' + id + '\'}');
                 }
 
-                el.replaceWith(a.append(el.html()));
+                el.attr('ng-class','{ selected: selected==\'' + id + '\'}');
+
+                var click = el.attr('fs-click') ? el.attr('fs-click').replace(/'/g, "\\'") : '';
+
+                a.attr('ng-click','sideClick($event,\'' + id + '\',\'' + click + '\')');                
+                a.addClass('fs-sidenav-item');
+                a.append(text.clone());
+
+                text.replaceWith(a);
+
+                angular.forEach(item.querySelectorAll('fs-sidenav-subitem'),function(item) {
+
+                  var item = angular.element(item);
+                  var text = angular.element(item.contents()[0]);
+                  item.attr('ng-class','{ selected: selected==\'' + id + '\'}');
+
+                  var a = angular.element('<a>');
+                  a.attr('href',item.attr('fs-href'));
+                  a.append(text.clone());
+
+                  text.replaceWith(a);
+                });
             });
 
             function guid() {
@@ -79,13 +95,9 @@
 
                 var items = element[0].querySelectorAll('fs-sidenav-side');
           
-                angular.forEach(items,function(item,index) {
-
-                  var el = angular.element(item);
-                
-                  if(!el.attr('fs-href')) {
-                    $compile(el.contents())($scope);
-                  }
+                angular.forEach(items,function(item,index) {                    
+                    var el = angular.element(item);              
+                    $compile(el.contents())($scope);          
                 });
 
                 if($scope.selected) {
