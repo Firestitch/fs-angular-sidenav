@@ -14,7 +14,7 @@
           controller: function($scope) {
 
             $scope.sideClick = function($event,id,click) {
-              
+              debugger;
               if(click) {
                 var result = $scope.$parent.$eval(click,{ $event: $event });
 
@@ -52,7 +52,9 @@
                   a.attr('href',el.attr("fs-href"));
                 } else {
 
-                  a.attr('ng-click','sideClick($event,\'' + id + '\',\'' + el.attr('fs-click') + '\')')
+                  var click = el.attr('fs-click') ? el.attr('fs-click').replace(/'/g, "\\'") : '';
+
+                  a.attr('ng-click','sideClick($event,\'' + id + '\',\'' + click + '\')')
                   .attr('ng-class','{ selected: selected==\'' + id + '\'}');
                 }
 

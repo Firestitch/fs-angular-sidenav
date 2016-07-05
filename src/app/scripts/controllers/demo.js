@@ -5,7 +5,7 @@
   .controller('DemoCtrl', function ($scope) {
 
   	$scope.click = function(event) {
-  		alert('clicked');
+  		debugger;
   	}
 
   	$scope.selected = 'types';
