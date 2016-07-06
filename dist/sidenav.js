@@ -94,12 +94,9 @@
                     angular.element(element[0].querySelector('fs-sidenav-side')).css('width',$scope.width + 'px');
                 }
 
-                var items = element[0].querySelectorAll('fs-sidenav-side');
-          
-                angular.forEach(items,function(item,index) {                    
-                    var el = angular.element(item);              
-                    $compile(el.contents())($scope);          
-                });
+                var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
+                var el = angular.element(items);
+                $compile(el.contents())($scope);
 
                 if($scope.selected) {
                   $scope.select($scope.selected);

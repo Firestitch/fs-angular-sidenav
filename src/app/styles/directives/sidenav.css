@@ -11,13 +11,14 @@ fs-sidenav fs-sidenav-side {
     width: 200px;
     min-width: 200px;
     display: block;
-    padding: 0px 0 15px 15px;
+    padding: 12px;
     min-height: 400px;
 }
 
 fs-sidenav fs-sidenav-side fs-sidenav-item {
     display: block;    
     cursor: pointer;
+    margin-right: -12px;
 }
 
 fs-sidenav fs-sidenav-side fs-sidenav-item a {
