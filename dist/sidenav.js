@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('fs-angular-sidenav',[])
-    .directive('fsSidenav', function($compile) {
+    .directive('fsSidenav', function($compile, $location) {
       return {
           restrict: 'E',
           scope: {
@@ -44,10 +44,14 @@
           
             angular.forEach(items,function(item,index) {
 
-                var el = angular.element(item);
-                var id = el.attr('fs-id') ? el.attr('fs-id') : 'id_' + guid();
-                var a = angular.element('<a>').attr('fs-id',id);
+                var el = angular.element(item);                
+                var a = angular.element('<a>');
                 var text = angular.element(el.contents()[0]);
+
+                if(!el.attr('fs-id'))
+                  el.attr('fs-id','id_' + guid());
+
+                var id = el.attr('fs-id');                
 
                 if(el.attr('fs-href')) {
                   a.attr('href',el.attr("fs-href"));
@@ -97,6 +101,13 @@
                 var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
                 var el = angular.element(items);
                 $compile(el.contents())($scope);
+                
+                angular.forEach(items,function(item,index) {
+                  var href = angular.element(item).attr('fs-href');
+                  if(!$scope.selected && href && href.replace(/^\/#/,'')==$location.$$url) {
+                    $scope.selected = angular.element(item).attr('fs-id');
+                  }
+                });
 
                 if($scope.selected) {
                   $scope.select($scope.selected);
