@@ -91,6 +91,10 @@
 
                   text.replaceWith(a);
                 });
+
+                el.replaceWith(angular.element('<div>')
+                                .addClass('fs-sidenav-wrap')
+                                .append(el.clone()));
             });
 
             angular.forEach(element[0].querySelectorAll('fs-sidenav-item'),function(item) {
@@ -128,7 +132,7 @@
                   $scope.selected = angular.element(element[0].querySelector('fs-sidenav-side fs-sidenav-item[fs-name]')).attr('fs-name');
                 }
 
-                var items = element[0].querySelectorAll('fs-sidenav-side');
+                var items = element[0].querySelectorAll('fs-sidenav-side .fs-sidenav-wrap');
                 var el = angular.element(items);
                 $compile(el.contents())($scope);
 
