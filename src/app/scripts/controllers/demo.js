@@ -10,6 +10,6 @@
 
   	$scope.selected = 'types';
   	$scope.hello = 'Hello!';
-    
+
 });
 
