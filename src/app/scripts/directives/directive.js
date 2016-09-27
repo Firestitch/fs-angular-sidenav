@@ -120,8 +120,11 @@
                     angular.element(element[0].querySelector('fs-sidenav-side')).css('width',$scope.width + 'px');
                 }
 
+                var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
+
                 angular.forEach(items,function(item,index) {
                   var href = angular.element(item).attr('fs-href');
+
                   if(!$scope.selected && href && href.replace(/^\/#/,'')==$location.$$url) {
                     $scope.selected = angular.element(item).attr('fs-name');
                   }
