@@ -4,6 +4,7 @@ fs-sidenav {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    width: 100%;
 }
 
 fs-sidenav fs-sidenav-side {

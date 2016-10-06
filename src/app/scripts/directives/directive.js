@@ -113,7 +113,6 @@
 
               pre: function($scope, element, attrs) {
 
-                $scope.selected = null;
                 $scope.element = element;
 
                 if($scope.width) {
