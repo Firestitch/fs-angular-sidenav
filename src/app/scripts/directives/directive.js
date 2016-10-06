@@ -22,9 +22,9 @@
                 }
               }
 
-              if(!href) {
+              // if(!href) {
                 $scope.select(id);
-              }
+              // }
             }
 
             $scope.isSelected = function(id) {
