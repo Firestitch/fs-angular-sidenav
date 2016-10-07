@@ -1,3 +1,4 @@
+
 (function () {
     'use strict';
 
@@ -11,7 +12,7 @@
           },
           controller: function($scope) {
             $scope.init = true;
-
+            $scope.show = {};
             $scope.sideClick = function($event,id,click,href) {
 
               if(click) {
@@ -68,7 +69,7 @@
                   a.attr('href',el.attr("fs-href"));
                 }
 
-                el.attr('ng-class','{ selected: selected==\'' + id + '\' && init}');
+                el.attr('ng-class','{ selected: selected==\'' + id + '\' && init, show: show[' + index + ']}');
 
                 var click = el.attr('fs-click') ? el.attr('fs-click').replace(/'/g, "\\'") : '';
                 var href = !!el.attr('fs-href');
@@ -122,10 +123,18 @@
                 var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
 
                 angular.forEach(items,function(item,index) {
-                  var href = angular.element(item).attr('fs-href');
+                  $scope.show[index] = true;
+                  var el = angular.element(item);
+                  var href = el.attr('fs-href');
 
                   if(!$scope.selected && href && href.replace(/^\/#/,'')==$location.$$url) {
-                    $scope.selected = angular.element(item).attr('fs-name');
+                    $scope.selected = el.attr('fs-name');
+                  }
+
+                  if(el.attr('fs-show')) {
+                    $scope.$parent.$watch(el.attr('fs-show'),function(value) {
+                      $scope.show[index] = value;
+                    });
                   }
                 });
 
@@ -146,4 +155,3 @@
         }
     });
 })();
-

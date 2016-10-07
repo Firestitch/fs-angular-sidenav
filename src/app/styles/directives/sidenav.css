@@ -17,9 +17,13 @@ fs-sidenav fs-sidenav-side {
 }
 
 fs-sidenav fs-sidenav-side fs-sidenav-item {
-    display: block;
+    display: none;
     cursor: pointer;
     margin-right: -12px;
+}
+
+fs-sidenav fs-sidenav-side fs-sidenav-item.show {
+    display: block;
 }
 
 fs-sidenav fs-sidenav-side fs-sidenav-item a {
