@@ -133,7 +133,6 @@
 
                 if($scope.collapse) {
 
-
 	                $scope.menu = true;
 	                $scope.toggleMenu = function() {
 	                	if($scope.menu) {
@@ -145,7 +144,7 @@
 	                	$scope.menu = !$scope.menu;
 	                }
 
-	                $compile(sideNav.contents())($scope);
+	                $compile(sideNav[0].querySelector('.menu-toggle'))($scope);
 	            }
 
                 var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
