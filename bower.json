@@ -5,9 +5,9 @@
     "dist/sidenav.js",
     "dist/sidenav.css"
   ],
-   "dependencies": {
-
-  },  
+  "dependencies": {
+    "fs-angular-util": "^1.0.0"
+  },
   "authors": [
     "Firestitch Inc."
   ],

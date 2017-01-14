@@ -16,6 +16,23 @@ fs-sidenav fs-sidenav-side {
     min-height: 400px;
 }
 
+fs-sidenav fs-sidenav-side.collapse-menu {
+	width: auto !important;
+	min-width: initial;
+}
+
+fs-sidenav fs-sidenav-side.collapse-menu .fs-sidenav-side-wrap {
+	display: none;
+}
+
+fs-sidenav fs-sidenav-side .menu-toggle {
+    float: right;
+}
+
+fs-sidenav fs-sidenav-side .fs-sidenav-wrap {
+    clear: both;
+}
+
 fs-sidenav fs-sidenav-side fs-sidenav-item {
     display: none;
     cursor: pointer;

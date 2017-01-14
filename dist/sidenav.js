@@ -3,30 +3,38 @@
 (function () {
     'use strict';
 
-    angular.module('fs-angular-sidenav',[])
-    .directive('fsSidenav', function($compile, $location) {
+	/**
+	 * @ngdoc directive
+	 * @name fs.directives:fs-sidenav
+	 * @restrict E
+	 * @param {string} fsSelected Indicates which item is selected by matching to the item's fs-name
+	 * @param {string} fsWidth The width of the side menu
+	 * @param {string} fsCollapse Enables the menu collapse icon and functionality
+	*/
+
+    angular.module('fs-angular-sidenav',['fs-angular-util'])
+    .directive('fsSidenav', function($compile, $location, fsUtil) {
       return {
           restrict: 'E',
           scope: {
               selected: '=?fsSelected',
-              width: '=fsWidth'
+              width: '=fsWidth',
+              collapse: '=fsCollapse'
           },
           controller: function($scope) {
             $scope.init = true;
             $scope.show = {};
             $scope.sideClick = function($event,id,click,href) {
 
-              if(click) {
-                var result = $scope.$parent.$eval(click,{ $event: $event });
+              	if(click) {
+                	var result = $scope.$parent.$eval(click,{ $event: $event });
 
-                if(result===false) {
-                    return;
-                }
-              }
+                	if(result===false) {
+                    	return;
+                	}
+              	}
 
-              // if(!href) {
-                $scope.select(id);
-              // }
+          		$scope.select(id);
             }
 
             $scope.isSelected = function(id) {
@@ -50,6 +58,14 @@
 
             var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
 
+            var sideNav = angular.element(element[0].querySelector('fs-sidenav-side'));
+
+            var wrap = angular.element('<div class="fs-sidenav-side-wrap"></div>').append(sideNav.children());
+
+            sideNav.append(wrap);
+
+            sideNav.prepend('<a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a>');
+
             angular.forEach(items,function(item,index) {
 
                 var el = angular.element(item);
@@ -61,7 +77,7 @@
                 }
 
                 if(!el.attr('fs-name')) {
-                  el.attr('fs-name','item_' + guid());
+                  el.attr('fs-name','item_' + fsUtil.guid());
                 }
 
                 var id = el.attr('fs-name');
@@ -104,22 +120,34 @@
                 item.attr('fs-name',item.attr('fs-id'));
             });
 
-            function guid() {
-                return 'xxxxxx'.replace(/[xy]/g, function(c) {
-                    var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
-                    return v.toString(16);
-                });
-            }
-
             return {
 
               pre: function($scope, element, attrs) {
 
                 $scope.element = element;
 
+                var sideNav = angular.element(element[0].querySelector('fs-sidenav-side'));
+
                 if($scope.width) {
-                    angular.element(element[0].querySelector('fs-sidenav-side')).css('width',$scope.width + 'px');
+                    sideNav.css('width',$scope.width + 'px');
                 }
+
+                if($scope.collapse) {
+
+
+	                $scope.menu = true;
+	                $scope.toggleMenu = function() {
+	                	if($scope.menu) {
+	                		sideNav.addClass('collapse-menu');
+	                	} else {
+	                		sideNav.removeClass('collapse-menu');
+	                	}
+
+	                	$scope.menu = !$scope.menu;
+	                }
+
+	                $compile(sideNav.contents())($scope);
+	            }
 
                 var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
 
@@ -148,7 +176,7 @@
                 $compile(el.contents())($scope);
 
                 if($scope.selected) {
-                  $scope.select($scope.selected);
+                  	$scope.select($scope.selected);
                 }
               }
             }
