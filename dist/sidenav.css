@@ -61,6 +61,10 @@ fs-sidenav fs-sidenav-side fs-sidenav-item.selected > a {
     background-color: #ECECEC;
 }
 
+fs-sidenav fs-sidenav-side fs-sidenav-subitem.selected > a {
+    font-weight: bold;
+}
+
 fs-sidenav fs-sidenav-content {
     border-left: 1px solid #E1E1E1;
     display: block;
