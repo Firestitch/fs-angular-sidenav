@@ -9,6 +9,7 @@
   	}
 
   	$scope.selected = 'types';
+  	$scope.subselected = 'sub2';
   	$scope.hello = 'Hello!';
 
 });

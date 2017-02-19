@@ -47,6 +47,8 @@ fs-sidenav fs-sidenav-side fs-sidenav-item a {
     color: inherit;
     text-decoration: inherit;
     display: block;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
 }
 
 fs-sidenav fs-sidenav-side fs-sidenav-item > a {
@@ -59,11 +61,8 @@ fs-sidenav fs-sidenav-side fs-sidenav-item[fs-disabled] {
 
 fs-sidenav fs-sidenav-side fs-sidenav-item.selected > a {
     background-color: #ECECEC;
-}
-
-fs-sidenav fs-sidenav-side fs-sidenav-subitem.selected > a {
-    font-weight: bold;
-    color: #555;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 fs-sidenav fs-sidenav-content {
@@ -88,14 +87,30 @@ fs-sidenav fs-sidenav-side fs-sidenav-item.selected fs-sidenav-subitem {
 
 fs-sidenav fs-sidenav-subitem {
     display: block;
-    padding: 15px 13px 0;
-    transform: scale(.85);
+    padding: 10px 0;
 }
 
-fs-sidenav fs-sidenav-subitem:last-child {
-    padding-bottom: 14px;
+fs-sidenav fs-sidenav-subitem {
+    display: block;
+    padding: 10px 0;
+    padding-left: 30px;
+}
+
+
+fs-sidenav fs-sidenav-subitem a{
+    font-size: smaller;
+}
+
+
+fs-sidenav fs-sidenav-subitem:not([style*="display:none"]):not([style*="display: none"]):last-child{
+    margin-bottom: 14px;
 }
 
 fs-sidenav fs-sidenav-subitem {
     display: none;
+}
+
+
+fs-sidenav fs-sidenav-side fs-sidenav-subitem.selected {
+	background: #efefef;
 }

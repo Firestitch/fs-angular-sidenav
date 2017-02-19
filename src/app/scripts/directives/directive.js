@@ -16,6 +16,7 @@
                 restrict: 'E',
                 scope: {
                     selected: '=?fsSelected',
+                    selectedSubitem: '=?fsSelectedSubitem',
                     width: '=fsWidth',
                     collapse: '=fsCollapse'
                 },
@@ -45,6 +46,10 @@
 
                         $scope.selected = id;
                     }
+
+                    $scope.subClick = function(name) {
+                    	$scope.selectedSubitem = name;
+                    }
                 },
 
                 compile: function(element) {
@@ -68,6 +73,7 @@
                         var el = angular.element(item);
                         var a = angular.element('<a>');
 
+                        //Legacy
                         if (el.attr('fs-id')) {
                             el.attr('fs-name', el.attr('fs-id'));
                         }
@@ -99,6 +105,11 @@
                             var a = angular.element('<a>');
                             a.attr('href', item.attr('fs-href'));
                             a.append(text.clone());
+                            var name = item.attr('fs-name');
+                            if(name) {
+                            	a.attr('ng-click', "subClick('" + name + "')");
+                            	item.attr('ng-class', "{ selected: selectedSubitem=='" + name + "'}");
+                            }
 
                             text.replaceWith(a);
                         });
