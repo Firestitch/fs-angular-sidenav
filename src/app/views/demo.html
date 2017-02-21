@@ -1,19 +1,28 @@
-<fs-sidenav fs-selected="selected" fs-selected-subitem="subselected" fs-width="200" fs-collapse="true">
+<fs-sidenav fs-selected="selected1111" fs-selected-subitem="subselected111" fs-width="400" fs-collapse="true">
     <fs-sidenav-side>
-        <fs-sidenav-item fs-name="types">Types (Show)</fs-sidenav-item>
-        <fs-sidenav-item fs-name="statuses">Statuses (Show)</fs-sidenav-item>
+    	<fs-heading>Heading</fs-heading>
+        <fs-sidenav-item fs-name="types">
+
+        	<span>Types (Show){{variable}}</span>
+
+        	<fs-sidenav-subitem>!!!!!!!!!!!!!</fs-sidenav-subitem>
+
+      	  	<fs-sidenav-subitem fs-name="{{sub.name}}" ng-repeat="sub in subs" fs-click="clicks('text')">{{sub.name}}</fs-sidenav-subitem>
+
+        </fs-sidenav-item>
+        <fs-sidenav-item fs-name="statuses">Statuses (Show) {{variable}}</fs-sidenav-item>
         <fs-sidenav-item fs-name="plans">
             Plans (Show)
-            <fs-sidenav-subitem fs-name="sub1">SubMenu1</fs-sidenav-subitem>
+            <fs-sidenav-subitem fs-name="sub1">SubMenu1 {{variable}}</fs-sidenav-subitem>
             <fs-sidenav-subitem fs-name="sub2">SubMenu1</fs-sidenav-subitem>
         </fs-sidenav-item>
-        <fs-sidenav-item fs-click="click('text')">Something (Click)</fs-sidenav-item>
+        <fs-sidenav-item fs-click="clicks('text')">Something (Click)</fs-sidenav-item>
         <fs-sidenav-item fs-href="http://www.google.com">Google (Href)</fs-sidenav-item>
         <fs-sidenav-item fs-href="/#/page">Page (Href)</fs-sidenav-item>
         <fs-sidenav-item fs-href="/#/demo">Demo (Href)</fs-sidenav-item>
     </fs-sidenav-side>
     <fs-sidenav-content>
-
+<!--
         <fs-sidenav-item fs-name="types">
             <h1>Types</h1>
             {{hello}}
@@ -25,9 +34,10 @@
 
         <fs-sidenav-item fs-name="plans">
             <h1>Plans</h1>
-        </fs-sidenav-item>
+        </fs-sidenav-item> -->
 
      </fs-sidenav-content>
-</fs-sidenav>
 
-<h3>{{selected}}</h3>
+</fs-sidenav><!--
+
+<h3>{{selected}}</h3> -->

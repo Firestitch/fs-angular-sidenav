@@ -11,188 +11,152 @@
      */
 
     angular.module('fs-angular-sidenav', ['fs-angular-util'])
-        .directive('fsSidenav', function($compile, $location, fsUtil, $interpolate) {
-            return {
-                restrict: 'E',
-                scope: {
-                    selected: '=?fsSelected',
-                    selectedSubitem: '=?fsSelectedSubitem',
-                    width: '=fsWidth',
-                    collapse: '=fsCollapse'
-                },
-                controller: function($scope) {
-                    $scope.init = true;
-                    $scope.show = {};
-                    $scope.sideClick = function($event, id, click, href) {
+    .directive('fsSidenav', function($compile) {
+        return {
+            restrict: 'E',
+            scope: {
+                selected: '=?fsSelected',
+                selectedSubitem: '=?fsSelectedSubitem',
+                width: '=?fsWidth',
+                collapse: '=?fsCollapse'
+            },
+            controller: function($scope) {
+            	this.$scope = $scope;
 
-                        if (click) {
-                            var result = $scope.$parent.$eval(click, { $event: $event });
-
-                            if (result === false) {
-                                return;
-                            }
-                        }
-
-                        $scope.select(id);
-                    }
-
-                    $scope.select = function(id) {
-
-                        angular.element($scope.element[0].querySelectorAll('fs-sidenav-content fs-sidenav-item'))
-                            .removeClass('selected');
-
-                        angular.element($scope.element[0].querySelector('fs-sidenav-content fs-sidenav-item[fs-name=\'' + id + '\']'))
-                            .addClass('selected');
-
-                        $scope.selected = id;
-                    }
-
-                    $scope.subClick = function(name) {
-                    	$scope.selectedSubitem = name;
-                    }
-                },
-
-                compile: function(element) {
-
-                    var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
-
-                    var sideNav = angular.element(element[0].querySelector('fs-sidenav-side'));
-
-                    var wrap = angular.element('<div class="fs-sidenav-side-wrap"></div>').append(sideNav.children());
-
-                    sideNav.append(wrap);
-
-                    sideNav.prepend('<a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a>');
-
-                    angular.forEach(items, function(item, index) {
-
-                        var sub_items = item.querySelectorAll('fs-sidenav-subitem');
-
-                        angular.element(sub_items).remove();
-
-                        var el = angular.element(item);
-                        var a = angular.element('<a>');
-
-                        //Legacy
-                        if (el.attr('fs-id')) {
-                            el.attr('fs-name', el.attr('fs-id'));
-                        }
-
-                        if (!el.attr('fs-name')) {
-                            el.attr('fs-name', 'item_' + fsUtil.guid());
-                        }
-
-                        var id = el.attr('fs-name');
-
-                        if (el.attr('fs-href')) {
-                            a.attr('href', el.attr("fs-href"));
-                        }
-
-                        el.attr('ng-class', '{ selected: selected==\'' + id + '\' && init, show: show[' + index + ']}');
-
-                        var click = el.attr('fs-click') ? el.attr('fs-click').replace(/'/g, "\\'") : '';
-                        var href = !!el.attr('fs-href');
-
-                        a.attr('ng-click', 'sideClick($event,\'' + id + '\',\'' + click + '\',' + href + ')');
-                        a.addClass('fs-sidenav-item');
-                        a.append(angular.element(el.contents()).clone());
-
-                        angular.forEach(sub_items, function(item) {
-
-                            var item = angular.element(item);
-                            var text = angular.element(item.contents()[0]);
-
-                            var a = angular.element('<a>');
-                            a.attr('href', item.attr('fs-href'));
-                            a.append(text.clone());
-                            var name = item.attr('fs-name');
-                            if(name) {
-                            	a.attr('ng-click', "subClick('" + name + "')");
-                            	item.attr('ng-class', "{ selected: selectedSubitem=='" + name + "'}");
-                            }
-
-                            text.replaceWith(a);
-                        });
-
-                        el.empty().append(a).append(sub_items);
-
-                        el.replaceWith(angular.element('<div>')
-                            .addClass('fs-sidenav-wrap')
-                            .append(el.clone()));
-                    });
-
-                    angular.forEach(element[0].querySelectorAll('fs-sidenav-item'), function(item) {
-                        var item = angular.element(item);
-                        if (item.attr('fs-id'))
-                            item.attr('fs-name', item.attr('fs-id'));
-                    });
-
-                    return {
-
-                        pre: function($scope, element, attrs) {
-
-                            $scope.element = element;
-
-                            var sideNav = angular.element(element[0].querySelector('fs-sidenav-side'));
-
-                            if ($scope.width) {
-                                sideNav.css('width', $scope.width + 'px');
-                            }
-
-                            if ($scope.collapse) {
-
-                                $scope.menu = true;
-                                $scope.toggleMenu = function() {
-                                    if ($scope.menu) {
-                                        sideNav.addClass('collapse-menu');
-                                    } else {
-                                        sideNav.removeClass('collapse-menu');
-                                    }
-
-                                    $scope.menu = !$scope.menu;
-                                }
-
-                                $compile(sideNav[0].querySelector('.menu-toggle'))($scope);
-                            }
-
-                            var items = element[0].querySelectorAll('fs-sidenav-side fs-sidenav-item');
-
-                            angular.forEach(items, function(item, index) {
-                                $scope.show[index] = true;
-                                var el = angular.element(item);
-                                var href = '';
-
-                                if (el.attr('fs-href')) {
-                                    href = $interpolate(el.attr('fs-href'))($scope.$parent);
-                                }
-
-                                if (!$scope.selected && href && href.replace(/^\/#/, '') == $location.$$url) {
-                                    $scope.selected = el.attr('fs-name');
-                                }
-
-                                if (el.attr('fs-show')) {
-                                    $scope.$parent.$watch(el.attr('fs-show'), function(value) {
-                                        $scope.show[index] = value;
-                                    });
-                                }
-                            });
-
-                            if (!$scope.selected) {
-                                $scope.selected = angular.element(element[0].querySelector('fs-sidenav-side fs-sidenav-item[fs-name]')).attr('fs-name');
-                            }
-
-                            var items = element[0].querySelectorAll('fs-sidenav-side .fs-sidenav-wrap');
-                            angular.forEach(items, function(item) {
-                                var el = angular.element(item);
-                                $compile(el.contents())($scope);
-                            });
-
-                            if ($scope.selected) {
-                                $scope.select($scope.selected);
-                            }
-                        }
-                    }
+            	if ($scope.width) {
+                    $scope.style = { width: $scope.width + 'px' };
                 }
-            }
-        });
+            },
+            compile: function(element) {
+
+            	var sideNav = angular.element(element).find('fs-sidenav-side');
+            	var wrap = angular.element('<div>').addClass('fs-sidenav-side-wrap');
+            	sideNav
+            		.attr('ng-style','style')
+            		.prepend(wrap)
+            		.prepend('<a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a>');
+
+				angular.forEach(sideNav.contents(),function(item) {
+					if(item.nodeName.toLowerCase()!='fs-sidenav-item' && !angular.element(item).hasClass('menu-toggle') && !angular.element(item).hasClass('fs-sidenav-side-wrap')) {
+						wrap.append(item);
+					}
+				});
+
+                return {
+					pre: function($scope, element) {
+
+						if ($scope.collapse) {
+                            $scope.menu = true;
+                            $scope.toggleMenu = function() {
+                                if ($scope.menu) {
+                                    sideNav.addClass('collapse-menu');
+                                } else {
+                                    sideNav.removeClass('collapse-menu');
+                                }
+
+                                $scope.menu = !$scope.menu;
+                            }
+
+                            $compile(sideNav[0])($scope);
+                        }
+                	}
+                }
+           	}
+        }
+    })
+	.directive('fsSidenavItem', function($location, fsUtil) {
+    	return {
+	        restrict: 'E',
+	        template: '<div class="fs-sidenav-item" ng-class="{ selected: selected==name }"><a ng-href="{{href}}" ng-click="clicked()"></a><fs-sidenav-subitems></fs-sidenav-subitems></div>',
+	        transclude: true,
+	        replace: true,
+	        scope: {
+	        	href: '@fsHref',
+	        	click: '@?fsClick',
+	        	name: '@fsName'
+	        },
+	        require: '^fsSidenav',
+	        link: function($scope, element, attr, controller, transclude) {
+
+	        	if(!$scope.name) {
+	        		$scope.name = fsUtil.guid();
+	        	}
+
+	        	if (!controller.$scope.selected && $scope.href && $scope.href.replace(/^\/#/, '') == $location.$$url) {
+                	controller.$scope.selected = $scope.name;
+                }
+
+	        	controller.$scope.$watch('selected',function(selected) {
+	        		$scope.selected = selected;
+	        	});
+
+	        	var a = angular.element(element[0].querySelector('a'));
+	        	var s = angular.element(element[0].querySelector('fs-sidenav-subitems'));
+	        	transclude(function(clone) {
+	        		angular.forEach(clone,function(item) {
+	        			if(angular.element(item).hasClass('fs-sidenav-subitem') || item.nodeName.toLowerCase()=='#comment') {
+							s.append(item);
+	        			} else {
+	        				a.append(item);
+	        			}
+	        		});
+	        	});
+
+	        	$scope.clicked = function(e) {
+	        		if($scope.click) {
+						$scope.$parent.$eval($scope.click,{ $event: e });
+					}
+
+					if(!$scope.href) {
+						controller.$scope.selected = $scope.name;
+					}
+	        	}
+	        }
+	    }
+	})
+	.directive('fsSidenavSubitem', function($location, fsUtil) {
+    	return {
+	        restrict: 'E',
+	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selectedName==name }"><a ng-href="{{href}}" ng-click="clicked(e)"><ng-transclude></ng-transclude></a></div>',
+	        transclude: true,
+	        replace: true,
+	        scope: {
+	        	href: '@fsHref',
+	        	click: '@?fsClick',
+	        	name: '@fsName',
+	        	selected: '=?fsSelected'
+	        },
+	        require: '^fsSidenav',
+	        link: function($scope, element, attr, controller, transclude) {
+
+	        	if(!$scope.name) {
+	        		$scope.name = fsUtil.guid();
+	        	}
+
+	        	if (!controller.$scope.selectedSubitem && $scope.href && $scope.href.replace(/^\/#/, '') == $location.$$url) {
+                	controller.$scope.selectedSubitem = $scope.name;
+                }
+
+                $scope.$watch('selected',function(selected) {
+                	if(selected) {
+                		controller.$scope.selectedSubitem = $scope.name;
+                	}
+	        	});
+
+	        	controller.$scope.$watch('selectedSubitem',function(selected) {
+	        		$scope.selectedName = selected;
+	        	});
+
+	        	$scope.clicked = function(e) {
+	        		if($scope.click) {
+						$scope.$parent.$eval($scope.click,{ $event: e });
+					}
+
+					if(!$scope.href) {
+						controller.$scope.selectedSubitem = $scope.name;
+					}
+	        	}
+	        }
+	    }
+	});
 })();

@@ -12,7 +12,7 @@ fs-sidenav fs-sidenav-side {
     width: 200px;
     min-width: 200px;
     display: block;
-    padding: 12px;
+    padding-left: 30px;
     min-height: 400px;
 }
 
@@ -21,29 +21,28 @@ fs-sidenav fs-sidenav-side.collapse-menu {
 	min-width: initial;
 }
 
+fs-sidenav fs-sidenav-side.collapse-menu .fs-sidenav-item,
 fs-sidenav fs-sidenav-side.collapse-menu .fs-sidenav-side-wrap {
 	display: none;
 }
 
 fs-sidenav fs-sidenav-side .menu-toggle {
     float: right;
+    padding: 5px;
 }
 
 fs-sidenav fs-sidenav-side .fs-sidenav-side-wrap {
     clear: both;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item {
-    display: none;
-    cursor: pointer;
-    margin-right: -12px;
-}
-
-fs-sidenav fs-sidenav-side fs-sidenav-item.show {
+fs-sidenav fs-sidenav-side .fs-sidenav-item {
     display: block;
+    cursor: pointer;
+    margin-left: -30px;
+    clear: both;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item a {
+fs-sidenav fs-sidenav-side .fs-sidenav-item a {
     color: inherit;
     text-decoration: inherit;
     display: block;
@@ -51,18 +50,18 @@ fs-sidenav fs-sidenav-side fs-sidenav-item a {
     border-bottom: 1px solid transparent;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item > a {
-    padding: 14px;
+fs-sidenav fs-sidenav-side .fs-sidenav-item > a {
+    padding: 14px 0 14px 30px;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item[fs-disabled] {
+fs-sidenav fs-sidenav-side .fs-sidenav-item[fs-disabled] {
     color: #ccc;
 }
 
-fs-sidenav fs-sidenav-side fs-sidenav-item.selected > a {
-    background-color: #ECECEC;
-    border-top: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
+fs-sidenav fs-sidenav-side .fs-sidenav-item.selected > a {
+    background-color: rgba(0,0,0,.095);
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
 }
 
 fs-sidenav fs-sidenav-content {
@@ -76,41 +75,35 @@ fs-sidenav fs-sidenav-content {
     box-sizing: border-box;
 }
 
-fs-sidenav fs-sidenav-content fs-sidenav-item {
-    display: none;
-}
-
-fs-sidenav fs-sidenav-content fs-sidenav-item.selected,
-fs-sidenav fs-sidenav-side fs-sidenav-item.selected fs-sidenav-subitem {
+fs-sidenav fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
     display: block;
 }
 
-fs-sidenav fs-sidenav-subitem {
+fs-sidenav .fs-sidenav-subitem {
     display: block;
     padding: 10px 0;
 }
 
-fs-sidenav fs-sidenav-subitem {
+fs-sidenav .fs-sidenav-subitem {
     display: block;
     padding: 10px 0;
-    padding-left: 30px;
+    padding-left: 45px;
 }
 
 
-fs-sidenav fs-sidenav-subitem a{
+fs-sidenav .fs-sidenav-subitem a {
     font-size: smaller;
 }
 
-
-fs-sidenav fs-sidenav-subitem:not([style*="display:none"]):not([style*="display: none"]):last-child{
+fs-sidenav .fs-sidenav-subitem:last-child{
     margin-bottom: 14px;
 }
 
-fs-sidenav fs-sidenav-subitem {
+fs-sidenav .fs-sidenav-subitem {
     display: none;
 }
 
 
-fs-sidenav fs-sidenav-side fs-sidenav-subitem.selected {
-	background: #efefef;
+fs-sidenav fs-sidenav-side .fs-sidenav-subitem.selected {
+	background: rgba(0,0,0,.08);
 }
