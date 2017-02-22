@@ -27,34 +27,23 @@
             },
             controller: function($scope) {
             	this.$scope = $scope;
-
-            	$scope.collapsed = false;
             	$scope.toggleMenu = function() {
             		$scope.collapsed = !$scope.collapsed;
             	}
-            },
-            link: function($scope, element) {
-
-           	}
+            }
         }
     })
     .directive('fsSidenavSide', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-side" ng-style="style"><a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div>',
+	        template: '<div class="fs-sidenav-side" ng-style="style"><a href ng-click="$parent.toggleMenu()" ng-show="$parent.collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div>',
 	        transclude: true,
 	        replace: true,
 	        require: '^fsSidenav',
 	        link: function($scope, element, attr, controller, transclude) {
 
-	        	$scope.collapse = controller.$scope.collapse;
-
-            	if (controller.$scope.width) {
-                    $scope.style = { width: controller.$scope.width + 'px' };
-                }
-
-                $scope.toggleMenu = function() {
-                	controller.$scope.toggleMenu();
+            	if ($scope.$parent.width) {
+                    $scope.style = { width: $scope.$parent.width + 'px' };
                 }
 	        }
 	    }
@@ -112,7 +101,7 @@
 	.directive('fsSidenavSubitem', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selectedName==name }"><a ng-href="{{href}}" ng-click="clicked(e)"><ng-transclude></ng-transclude></a></div>',
+	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selectedName==name }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
 	        transclude: true,
 	        replace: true,
 	        scope: {
