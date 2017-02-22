@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -14,6 +15,9 @@
     .directive('fsSidenav', function($compile) {
         return {
             restrict: 'E',
+            template: '<div class="fs-sidenav" ng-class="{ collapsed: collapsed }" ng-transclude></div>',
+            replace: true,
+            transclude: true,
             scope: {
                 selected: '=?fsSelected',
                 selectedSubitem: '=?fsSelectedSubitem',
@@ -23,47 +27,37 @@
             controller: function($scope) {
             	this.$scope = $scope;
 
-            	if ($scope.width) {
-                    $scope.style = { width: $scope.width + 'px' };
-                }
+            	$scope.collapsed = false;
+            	$scope.toggleMenu = function() {
+            		$scope.collapsed = !$scope.collapsed;
+            	}
             },
-            compile: function(element) {
+            link: function($scope, element) {
 
-            	var sideNav = angular.element(element).find('fs-sidenav-side');
-            	var wrap = angular.element('<div>').addClass('fs-sidenav-side-wrap');
-            	sideNav
-            		.attr('ng-style','style')
-            		.prepend(wrap)
-            		.prepend('<a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a>');
-
-				angular.forEach(sideNav.contents(),function(item) {
-					if(item.nodeName.toLowerCase()!='fs-sidenav-item' && !angular.element(item).hasClass('menu-toggle') && !angular.element(item).hasClass('fs-sidenav-side-wrap')) {
-						wrap.append(item);
-					}
-				});
-
-                return {
-					pre: function($scope, element) {
-
-						if ($scope.collapse) {
-                            $scope.menu = true;
-                            $scope.toggleMenu = function() {
-                                if ($scope.menu) {
-                                    sideNav.addClass('collapse-menu');
-                                } else {
-                                    sideNav.removeClass('collapse-menu');
-                                }
-
-                                $scope.menu = !$scope.menu;
-                            }
-
-                            $compile(sideNav[0])($scope);
-                        }
-                	}
-                }
            	}
         }
     })
+    .directive('fsSidenavSide', function($location, fsUtil) {
+    	return {
+	        restrict: 'E',
+	        template: '<div class="fs-sidenav-side" ng-style="style"><a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div>',
+	        transclude: true,
+	        replace: true,
+	        require: '^fsSidenav',
+	        link: function($scope, element, attr, controller, transclude) {
+
+	        	$scope.collapse = controller.$scope.collapse;
+
+            	if (controller.$scope.width) {
+                    $scope.style = { width: controller.$scope.width + 'px' };
+                }
+
+                $scope.toggleMenu = function() {
+                	controller.$scope.toggleMenu();
+                }
+	        }
+	    }
+	})
 	.directive('fsSidenavItem', function($location, fsUtil) {
     	return {
 	        restrict: 'E',

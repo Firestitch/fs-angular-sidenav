@@ -1,5 +1,5 @@
 
-fs-sidenav {
+.fs-sidenav {
     box-sizing: border-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -7,42 +7,38 @@ fs-sidenav {
     width: 100%;
 }
 
-fs-sidenav fs-sidenav-side {
+.fs-sidenav .fs-sidenav-side {
     border-right: 1px solid #E1E1E1;
-    width: 200px;
-    min-width: 200px;
     display: block;
-    padding-left: 30px;
     min-height: 400px;
 }
 
-fs-sidenav fs-sidenav-side.collapse-menu {
+.fs-sidenav.collapsed .fs-sidenav-side {
 	width: auto !important;
 	min-width: initial;
+	padding: 0;
 }
 
-fs-sidenav fs-sidenav-side.collapse-menu .fs-sidenav-item,
-fs-sidenav fs-sidenav-side.collapse-menu .fs-sidenav-side-wrap {
+.fs-sidenav.collapsed .fs-sidenav-side .fs-sidenav-side-wrap {
 	display: none;
 }
 
-fs-sidenav fs-sidenav-side .menu-toggle {
+.fs-sidenav .fs-sidenav-side .menu-toggle {
     float: right;
     padding: 5px;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-side-wrap {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-side-wrap {
     clear: both;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-item {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item {
     display: block;
     cursor: pointer;
-    margin-left: -30px;
     clear: both;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-item a {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item a {
     color: inherit;
     text-decoration: inherit;
     display: block;
@@ -50,21 +46,21 @@ fs-sidenav fs-sidenav-side .fs-sidenav-item a {
     border-bottom: 1px solid transparent;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-item > a {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item > a {
     padding: 14px 0 14px 30px;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-item[fs-disabled] {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item[fs-disabled] {
     color: #ccc;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-item.selected > a {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a {
     background-color: rgba(0,0,0,.095);
     border-top: 1px solid #E1E1E1;
     border-bottom: 1px solid #E1E1E1;
 }
 
-fs-sidenav fs-sidenav-content {
+.fs-sidenav fs-sidenav-content {
     border-left: 1px solid #E1E1E1;
     display: block;
     margin-left: -1px;
@@ -75,35 +71,35 @@ fs-sidenav fs-sidenav-content {
     box-sizing: border-box;
 }
 
-fs-sidenav fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
     display: block;
 }
 
-fs-sidenav .fs-sidenav-subitem {
+.fs-sidenav .fs-sidenav-subitem {
     display: block;
     padding: 10px 0;
 }
 
-fs-sidenav .fs-sidenav-subitem {
+.fs-sidenav .fs-sidenav-subitem {
     display: block;
     padding: 10px 0;
     padding-left: 45px;
 }
 
 
-fs-sidenav .fs-sidenav-subitem a {
+.fs-sidenav .fs-sidenav-subitem a {
     font-size: smaller;
 }
 
-fs-sidenav .fs-sidenav-subitem:last-child{
+.fs-sidenav .fs-sidenav-subitem:last-child{
     margin-bottom: 14px;
 }
 
-fs-sidenav .fs-sidenav-subitem {
+.fs-sidenav .fs-sidenav-subitem {
     display: none;
 }
 
 
-fs-sidenav fs-sidenav-side .fs-sidenav-subitem.selected {
+.fs-sidenav .fs-sidenav-side .fs-sidenav-subitem.selected {
 	background: rgba(0,0,0,.08);
 }
