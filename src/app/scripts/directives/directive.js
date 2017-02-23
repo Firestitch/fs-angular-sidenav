@@ -56,7 +56,8 @@
 	        scope: {
 	        	href: '@fsHref',
 	        	click: '@?fsClick',
-	        	name: '@fsName'
+	        	name: '@fsName',
+	        	selected: '=?fsSelected'
 	        },
 	        require: '^fsSidenav',
 	        link: function($scope, element, attr, controller, transclude) {
@@ -65,9 +66,21 @@
 	        		$scope.name = fsUtil.guid();
 	        	}
 
-	        	if (!controller.$scope.selected && $scope.href && $scope.href.replace(/^\/#/, '') == $location.$$url) {
-                	controller.$scope.selected = $scope.name;
-                }
+				var stateChangeStart = $scope.$on('$stateChangeSuccess',function() {
+					if ($scope.href == $location.$$url) {
+	                	controller.$scope.selected = $scope.name;
+	                }
+				});
+
+				$scope.$on('$destroy', function() {
+					stateChangeStart();
+				});
+
+                $scope.$watch('selected',function(selected) {
+                	if(selected==$scope.name) {
+                		controller.$scope.selected = $scope.name;
+                	}
+	        	});
 
 	        	controller.$scope.$watch('selected',function(selected) {
 	        		$scope.selected = selected;
@@ -100,7 +113,7 @@
 	.directive('fsSidenavSubitem', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selectedName==name }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
+	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected==name }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
 	        transclude: true,
 	        replace: true,
 	        scope: {
@@ -116,18 +129,24 @@
 	        		$scope.name = fsUtil.guid();
 	        	}
 
-	        	if (!controller.$scope.selectedSubitem && $scope.href && $scope.href.replace(/^\/#/, '') == $location.$$url) {
-                	controller.$scope.selectedSubitem = $scope.name;
-                }
+				var stateChangeStart = $scope.$on('$stateChangeSuccess',function() {
+					if (!controller.$scope.selectedSubitem && $scope.href && $scope.href == $location.$$url) {
+	                	controller.$scope.selectedSubitem = $scope.name;
+	                }
+				});
+
+				$scope.$on('$destroy', function() {
+					stateChangeStart();
+				});
 
                 $scope.$watch('selected',function(selected) {
-                	if(selected) {
+                	if(selected==$scope.name) {
                 		controller.$scope.selectedSubitem = $scope.name;
                 	}
 	        	});
 
 	        	controller.$scope.$watch('selectedSubitem',function(selected) {
-	        		$scope.selectedName = selected;
+	        		$scope.selected = selected;
 	        	});
 
 	        	$scope.clicked = function(e) {
