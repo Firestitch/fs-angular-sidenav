@@ -25,6 +25,10 @@
                 collapse: '=?fsCollapse'
             },
             controller: function($scope) {
+            	if(!$scope.width) {
+            		$scope.width = 300;
+            	}
+
             	this.$scope = $scope;
             	$scope.toggleMenu = function() {
             		$scope.collapsed = !$scope.collapsed;
