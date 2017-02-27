@@ -44,6 +44,7 @@
     display: block;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
+    display: block;
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item > a {
@@ -71,32 +72,22 @@
     box-sizing: border-box;
 }
 
+.fs-sidenav .fs-sidenav-subitem {
+    display: none;
+}
+
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
     display: block;
 }
 
-.fs-sidenav .fs-sidenav-subitem {
-    display: block;
-    padding: 10px 0;
-}
-
-.fs-sidenav .fs-sidenav-subitem {
-    display: block;
+.fs-sidenav .fs-sidenav-subitem a {
+    font-size: smaller;
     padding: 10px 0;
     padding-left: 45px;
 }
 
-
-.fs-sidenav .fs-sidenav-subitem a {
-    font-size: smaller;
-}
-
 .fs-sidenav .fs-sidenav-subitem:last-child{
     margin-bottom: 14px;
-}
-
-.fs-sidenav .fs-sidenav-subitem {
-    display: none;
 }
 
 

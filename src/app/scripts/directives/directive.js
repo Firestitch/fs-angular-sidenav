@@ -1,4 +1,5 @@
 
+
 (function() {
     'use strict';
 
@@ -117,7 +118,7 @@
 	.directive('fsSidenavSubitem', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected==name }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
+	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
 	        transclude: true,
 	        replace: true,
 	        scope: {
@@ -144,13 +145,13 @@
 				});
 
                 $scope.$watch('selected',function(selected) {
-                	if(selected==$scope.name) {
+                	if(selected) {
                 		controller.$scope.selectedSubitem = $scope.name;
                 	}
 	        	});
 
 	        	controller.$scope.$watch('selectedSubitem',function(selected) {
-	        		$scope.selected = selected;
+	        		$scope.selected = selected==$scope.name
 	        	});
 
 	        	$scope.clicked = function(e) {
@@ -166,3 +167,5 @@
 	    }
 	});
 })();
+
+
