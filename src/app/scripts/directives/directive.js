@@ -1,5 +1,6 @@
 
 
+
 (function() {
     'use strict';
 
@@ -52,7 +53,7 @@
 	        }
 	    }
 	})
-	.directive('fsSidenavItem', function($location, fsUtil) {
+	.directive('fsSidenavItem', function($location, fsUtil, $rootScope) {
     	return {
 	        restrict: 'E',
 	        template: '<div class="fs-sidenav-item" ng-class="{ selected: selected==name }"><a ng-href="{{href}}" ng-click="clicked()"></a><fs-sidenav-subitems></fs-sidenav-subitems></div>',
@@ -71,11 +72,9 @@
 	        		$scope.name = fsUtil.guid();
 	        	}
 
-				var stateChangeStart = $scope.$on('$stateChangeSuccess',function() {
-					if ($scope.href == $location.$$url) {
-	                	controller.$scope.selected = $scope.name;
-	                }
-				});
+	        	selectedUrl();
+
+				var stateChangeStart = $rootScope.$on('$stateChangeSuccess',selectedUrl);
 
 				$scope.$on('$destroy', function() {
 					stateChangeStart();
@@ -112,10 +111,16 @@
 						controller.$scope.selected = $scope.name;
 					}
 	        	}
+
+	        	function selectedUrl() {
+	        		if ($scope.href == $location.$$url) {
+                		controller.$scope.selected = $scope.name;
+                	}
+                }
 	        }
 	    }
 	})
-	.directive('fsSidenavSubitem', function($location, fsUtil) {
+	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope) {
     	return {
 	        restrict: 'E',
 	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
@@ -134,11 +139,9 @@
 	        		$scope.name = fsUtil.guid();
 	        	}
 
-				var stateChangeStart = $scope.$on('$stateChangeSuccess',function() {
-					if (!controller.$scope.selectedSubitem && $scope.href && $scope.href == $location.$$url) {
-	                	controller.$scope.selectedSubitem = $scope.name;
-	                }
-				});
+	        	selectedUrl();
+
+				var stateChangeStart = $rootScope.$on('$stateChangeSuccess',selectedUrl);
 
 				$scope.$on('$destroy', function() {
 					stateChangeStart();
@@ -163,9 +166,17 @@
 						controller.$scope.selectedSubitem = $scope.name;
 					}
 	        	}
+
+	        	function selectedUrl() {
+					if (!controller.$scope.selectedSubitem && $scope.href && $scope.href == $location.$$url) {
+	                	controller.$scope.selectedSubitem = $scope.name;
+	                }
+	        	}
 	        }
 	    }
 	});
 })();
+
+
 
 
