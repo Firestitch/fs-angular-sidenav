@@ -51,7 +51,7 @@
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item > a {
-    padding: 14px 0 14px 35px;
+    padding: 10px 0 10px 35px;
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item[fs-disabled] {
@@ -60,8 +60,8 @@
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a {
     background-color: rgba(0,0,0,.035);
-    border-top: 1px solid #E1E1E1;
-    border-bottom: 1px solid #E1E1E1;
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
 }
 
 .fs-sidenav fs-sidenav-content {
@@ -82,7 +82,7 @@
 
 .fs-sidenav .fs-sidenav-subitem a {
     font-size: smaller;
-    padding: 10px 0;
+    padding: 8px 0;
     padding-left: 45px;
 }
 
@@ -90,11 +90,16 @@
     padding-left: 65px;
 }
 
-.fs-sidenav .fs-sidenav-subitem:last-child{
-    /*margin-bottom: 14px;*/
+.fs-sidenav .fs-sidenav-side .fs-sidenav-subitem.selected {
+	background: rgba(0,0,0,.08);
 }
 
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-subitem.selected {
-	background: rgba(0,0,0,.08);
+.fs-sidenav fs-sidenav-section {
+	display: block;
+	padding: 13px 15px;
+    box-sizing: border-box;
+    background: #888;
+    color: #fff;
+    width: 100%;
 }
