@@ -1,7 +1,3 @@
-
-
-
-
 (function() {
     'use strict';
 
@@ -122,6 +118,14 @@
 	        }
 	    }
 	})
+	.directive('fsSidenavSection', function(fsTheme) {
+    	return {
+	        restrict: 'E',
+	        link: function($scope, element, attr, controller) {
+	        	angular.element(element).css('backgroundColor',fsTheme.primaryHex());
+	        }
+	    }
+	})
 	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope) {
     	return {
 	        restrict: 'E',
@@ -182,9 +186,3 @@
 	    }
 	});
 })();
-
-
-
-
-
-
