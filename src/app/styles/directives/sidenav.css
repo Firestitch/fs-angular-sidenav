@@ -8,9 +8,8 @@
 }
 
 .fs-sidenav .fs-sidenav-side {
-    border-right: 1px solid #E1E1E1;
     display: block;
-    min-height: 400px;
+    width: 100%;
 }
 
 .fs-sidenav.collapsed .fs-sidenav-side {
@@ -47,8 +46,12 @@
     display: block;
 }
 
+.fs-sidenav .fs-sidenav-side .fs-sidenav-item a md-icon {
+	margin-right: 7px;
+}
+
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item > a {
-    padding: 14px 0 14px 30px;
+    padding: 14px 0 14px 35px;
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item[fs-disabled] {
@@ -56,7 +59,7 @@
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a {
-    background-color: rgba(0,0,0,.095);
+    background-color: rgba(0,0,0,.035);
     border-top: 1px solid #E1E1E1;
     border-bottom: 1px solid #E1E1E1;
 }
@@ -64,17 +67,14 @@
 .fs-sidenav fs-sidenav-content {
     border-left: 1px solid #E1E1E1;
     display: block;
-    margin-left: -1px;
     padding: 15px;
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
     box-sizing: border-box;
+    min-height: 400px;
 }
 
-.fs-sidenav .fs-sidenav-subitem {
-    display: none;
-}
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
     display: block;
@@ -86,8 +86,12 @@
     padding-left: 45px;
 }
 
+.fs-sidenav .fs-sidenav-item.has-icon .fs-sidenav-subitem a {
+    padding-left: 65px;
+}
+
 .fs-sidenav .fs-sidenav-subitem:last-child{
-    margin-bottom: 14px;
+    /*margin-bottom: 14px;*/
 }
 
 

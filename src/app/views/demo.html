@@ -1,15 +1,13 @@
-<fs-sidenav fs-selected="'types'" fs-selected-subitem="'Sub2'" fs-width="400" fs-collapse="true">
+<fs-sidenav fs-selected="selected" fs-selected-subitem="'Sub2'" fs-width="300" fs-collapse="true">
     <fs-sidenav-side>
     	<fs-heading>Heading</fs-heading>
     	ssssssssssssssssssss
-        <fs-sidenav-item fs-name="types">
+        <fs-sidenav-item fs-name="types" fs-icon="settings">
 
         	<span>Types (Show){{variable}}</span>
 
         	<fs-sidenav-subitem>!!!!!!!!!!!!!</fs-sidenav-subitem>
-
       	  	<fs-sidenav-subitem fs-name="{{sub.name}}" ng-repeat="sub in subs" fs-click="clicks('text')">{{sub.name}}</fs-sidenav-subitem>
-
         </fs-sidenav-item>
         <fs-sidenav-item fs-name="statuses">Statuses (Show) {{variable}}</fs-sidenav-item>
         <fs-sidenav-item fs-name="plans">
