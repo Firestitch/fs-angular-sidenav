@@ -1,9 +1,4 @@
 
-
-
-
-
-
 (function() {
     'use strict';
 
@@ -75,6 +70,7 @@
 	        	click: '@?fsClick',
 	        	name: '@fsName',
 	        	icon: '@fsIcon',
+	        	urls: '@fsUrls',
 	        	selected: '=?fsSelected',
 	        	disabled: '=?fsDisabled',
 	        	hide: '=?fsHide'
@@ -112,7 +108,14 @@
 	        	}
 
 	        	function selectedUrl() {
-	        		if ($scope.href == $location.$$url) {
+
+	        		var urls = [];
+	        		if($scope.urls) {
+	        			urls = $scope.urls.split(',');
+	        		}
+	        		urls.push($scope.href);
+
+	        		if(urls.indexOf($location.$$url)>=0) {
                 		select();
                 	}
                 }
@@ -192,13 +195,4 @@
 	    }
 	});
 })();
-
-
-
-
-
-
-
-
-
 
