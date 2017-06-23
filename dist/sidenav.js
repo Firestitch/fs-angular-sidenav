@@ -145,6 +145,7 @@
 	        	href: '@fsHref',
 	        	click: '@?fsClick',
 	        	name: '@fsName',
+	        	urls: '@fsUrls',
 	        	selected: '=?fsSelected'
 	        },
 	        require: ['^fsSidenav','^fsSidenavItem'],
@@ -182,8 +183,15 @@
 	        	}
 
 	        	function selectedUrl() {
-					if($scope.href==$location.$$url) {
-	                	select();
+
+	        		var urls = [];
+	        		if($scope.urls) {
+	        			urls = $scope.urls.split(',');
+	        		}
+	        		urls.push($scope.href);
+
+					if(urls.indexOf($location.$$url)>=0) {
+                		select();
 	                }
 	        	}
 
