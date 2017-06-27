@@ -11,7 +11,7 @@
      * @param {string} fsCollapse Enables the menu collapse icon and functionality
      */
 
-    angular.module('fs-angular-sidenav', ['fs-angular-util'])
+    angular.module('fs-angular-sidenav', ['fs-angular-util','fs-angular-theme'])
     .directive('fsSidenav', function($compile) {
         return {
             restrict: 'E',
@@ -52,14 +52,14 @@
 	.directive('fsSidenavItem', function($location, fsUtil, $rootScope) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-item" ng-class="{ \'has-icon\': !!icon, selected: selected==name, disabled: disabled }" ng-hide="hide">\
+	        template: '<div class="fs-sidenav-item" ng-class="{ \'has-icon\': !!icon, selected: selected, disabled: disabled }" ng-hide="hide">\
 	        				<a ng-href="{{href}}" ng-click="clicked()">\
 	        					<div layout="row" layout-align="start center">\
 	    							<md-icon ng-if="icon">{{icon}}</md-icon>\
 	    							<div class="fs-sidenav-item-name" flex="100" ng-transclude></div>\
 	    						</div>\
 	        				</a>\
-	        				<fs-sidenav-subitems ng-show="selected==name" ng-transclude="subitems"></fs-sidenav-subitems>\
+	        				<fs-sidenav-subitems ng-show="selected" ng-transclude="subitems"></fs-sidenav-subitems>\
 	        			</div>',
 	        transclude: {
 	        	subitems: '?fsSidenavSubitem'
@@ -70,7 +70,6 @@
 	        	click: '@?fsClick',
 	        	name: '@fsName',
 	        	icon: '@fsIcon',
-	        	urls: '@fsUrls',
 	        	selected: '=?fsSelected',
 	        	disabled: '=?fsDisabled',
 	        	hide: '=?fsHide'
@@ -94,7 +93,7 @@
 				$scope.$on('$stateChangeSuccess',selectedUrl);
 
 	        	controller.$scope.$watch('selected',function(selected) {
-	        		$scope.selected = selected;
+	        		$scope.selected = selected==$scope.name;
 	        	});
 
 	        	$scope.clicked = function(e) {
@@ -108,19 +107,13 @@
 	        	}
 
 	        	function selectedUrl() {
-
-	        		var urls = [];
-	        		if($scope.urls) {
-	        			urls = $scope.urls.split(',');
-	        		}
-	        		urls.push($scope.href);
-
-	        		if(urls.indexOf($location.$$url)>=0) {
+	        		if ($scope.href == $location.$$url) {
                 		select();
                 	}
                 }
 
                 function select() {
+                	$scope.selected = true;
 	        		controller.$scope.selected = $scope.name;
 	        		controller.$scope.selectedSubitem = '';
 	        	}
@@ -138,14 +131,13 @@
 	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected==name }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
+	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
 	        transclude: true,
 	        replace: true,
 	        scope: {
 	        	href: '@fsHref',
 	        	click: '@?fsClick',
 	        	name: '@fsName',
-	        	urls: '@fsUrls',
 	        	selected: '=?fsSelected'
 	        },
 	        require: ['^fsSidenav','^fsSidenavItem'],
@@ -159,9 +151,9 @@
 				$scope.$on('$stateChangeSuccess',selectedUrl);
 
 	        	controller[0].$scope.$watch('selectedSubitem',function(selected) {
-	        		$scope.selected = selected
+	        		$scope.selected = selected==$scope.name;
 
-	        		if(selected==$scope.name) {
+	        		if($scope.selected) {
 	        			controller[0].$scope.selected = controller[1].name;
 	        		}
 	        	});
@@ -183,19 +175,13 @@
 	        	}
 
 	        	function selectedUrl() {
-
-	        		var urls = [];
-	        		if($scope.urls) {
-	        			urls = $scope.urls.split(',');
-	        		}
-	        		urls.push($scope.href);
-
-					if(urls.indexOf($location.$$url)>=0) {
-                		select();
+					if($scope.href==$location.$$url) {
+	                	select();
 	                }
 	        	}
 
 	        	function select() {
+	        		$scope.selected = true;
 	        		controller[0].$scope.selected = controller[1].name;
 	        		controller[0].$scope.selectedSubitem = $scope.name;
 	        	}
@@ -203,4 +189,6 @@
 	    }
 	});
 })();
+
+
 
