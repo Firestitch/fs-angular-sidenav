@@ -69,6 +69,7 @@
 	        	click: '@?fsClick',
 	        	name: '@fsName',
 	        	icon: '@fsIcon',
+	        	selectable: '@fsSelectable',
 	        	selected: '=?fsSelected',
 	        	disabled: '=?fsDisabled',
 	        	hide: '=?fsHide'
@@ -106,8 +107,16 @@
 	        	}
 
 	        	function selectedUrl() {
+
 	        		if ($scope.href == $location.$$url) {
                 		select();
+
+                	} else if($scope.selectable) {
+                		angular.forEach($scope.selectable.split(','),function(regex) {
+                			if((new RegExp(regex)).exec($location.$$url)) {
+								select();
+                			}
+                		});
                 	}
                 }
 
@@ -137,7 +146,8 @@
 	        	href: '@fsHref',
 	        	click: '@?fsClick',
 	        	name: '@fsName',
-	        	selected: '=?fsSelected'
+	        	selected: '=?fsSelected',
+	        	selectable: '@fsSelectable'
 	        },
 	        require: ['^fsSidenav','^fsSidenavItem'],
 	        controller: function($scope) {
@@ -176,7 +186,13 @@
 	        	function selectedUrl() {
 					if($scope.href==$location.$$url) {
 	                	select();
-	                }
+	                } else if($scope.selectable) {
+                		angular.forEach($scope.selectable.split(','),function(regex) {
+                			if((new RegExp(regex)).exec($location.$$url)) {
+								select();
+                			}
+                		});
+                	}
 	        	}
 
 	        	function select() {

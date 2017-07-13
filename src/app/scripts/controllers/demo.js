@@ -10,8 +10,8 @@
 
   	$scope.variable = 'xxxxxxxxxx';
 
-  	$scope.selected = 'types';
-  	$scope.subselected = 'Sub2';
+  	//$scope.selected = 'types';
+  	//$scope.subselected = 'Sub2';
   	$scope.hello = 'Hello!';
 
   	$scope.subs = [{ name: 'Sub1' },{ name: 'Sub2' },{ name: 'Sub3' },{ name: 'Sub4' }];

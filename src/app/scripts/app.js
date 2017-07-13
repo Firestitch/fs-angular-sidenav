@@ -28,6 +28,12 @@ angular
         controller: 'DemoCtrl'
     })
 
+    .state('demo2', {
+        url: '/demo2',
+        templateUrl: 'views/demo.html',
+        controller: 'DemoCtrl'
+    })
+
     .state('404', {
         templateUrl: 'views/404.html',
         controller: 'DemoCtrl'
