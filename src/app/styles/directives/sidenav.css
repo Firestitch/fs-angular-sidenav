@@ -12,6 +12,7 @@
 
 .fs-sidenav md-sidenav {
 	width: 100%;
+	min-width: 200px;
 }
 
 .fs-sidenav .fs-sidenav-side {
@@ -58,7 +59,7 @@
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item > a {
-    padding: 10px 0 10px 35px;
+    padding: 10px 25px 10px 35px;
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item[fs-disabled] {

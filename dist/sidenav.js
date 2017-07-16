@@ -52,7 +52,7 @@
 	        }
 	    }
 	})
-	.directive('fsSidenavItem', function($location, fsUtil, $rootScope) {
+	.directive('fsSidenavItem', function($location, fsUtil, $rootScope, fsSidenav) {
     	return {
 	        restrict: 'E',
 	        template: '<div class="fs-sidenav-item" ng-class="{ \'has-icon\': !!icon, selected: selected, disabled: disabled }" ng-hide="hide">\
@@ -101,11 +101,16 @@
 	        	});
 
 	        	$scope.clicked = function(e) {
+
+
+
 	        		if($scope.click) {
 						$scope.$parent.$eval($scope.click,{ $event: e });
 					}
 
-					if(!$scope.href) {
+					if($scope.href) {
+						fsSidenav.close();
+					} else {
 						select();
 					}
 	        	}
@@ -140,7 +145,7 @@
 	        }
 	    }
 	})
-	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope) {
+	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope, fsSidenav) {
     	return {
 	        restrict: 'E',
 	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
@@ -178,11 +183,14 @@
 	        	}
 
 	        	$scope.clicked = function(e) {
+
 	        		if($scope.click) {
 						$scope.$parent.$eval($scope.click,{ $event: e });
 					}
 
-					if(!$scope.href) {
+					if($scope.href) {
+	        			fsSidenav.close();
+	        		} else {
 						select();
 					}
 	        	}
@@ -216,10 +224,20 @@
     angular.module('fs-angular-sidenav')
     .factory('fsSidenav', function($mdSidenav) {
         var service = {
-            toggle: toggle
+            toggle: toggle,
+            open: open,
+            close: close
         };
 
         return service;
+
+        function open() {
+            $mdSidenav('fs-sidenav').open();
+        }
+
+        function close() {
+            $mdSidenav('fs-sidenav').close();
+        }
 
         function toggle() {
             $mdSidenav('fs-sidenav').toggle();
