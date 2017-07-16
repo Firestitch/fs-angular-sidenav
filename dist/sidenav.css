@@ -5,6 +5,9 @@
     display: -ms-flexbox;
     display: flex;
     width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 100%;
 }
 
 .fs-sidenav md-sidenav {

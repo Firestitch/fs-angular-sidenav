@@ -5,7 +5,7 @@
   .controller('DemoCtrl', function ($scope, $timeout, fsSidenav) {
 
   	$scope.open = function() {
-		fsSidenav.open();
+		fsSidenav.toggle();
   	}
 
   	$scope.variable = 'xxxxxxxxxx';

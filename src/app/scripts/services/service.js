@@ -4,12 +4,12 @@
     angular.module('fs-angular-sidenav')
     .factory('fsSidenav', function($mdSidenav) {
         var service = {
-            open: open
+            toggle: toggle
         };
 
         return service;
 
-        function open() {
+        function toggle() {
             $mdSidenav('fs-sidenav').toggle();
         }
 
