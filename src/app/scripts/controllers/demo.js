@@ -2,10 +2,10 @@
 
 
 angular.module('app')
-  .controller('DemoCtrl', function ($scope, $timeout) {
+  .controller('DemoCtrl', function ($scope, $timeout, fsSidenav) {
 
-  	$scope.clicks = function(event) {
-		console.log('click');
+  	$scope.open = function() {
+		fsSidenav.open();
   	}
 
   	$scope.variable = 'xxxxxxxxxx';

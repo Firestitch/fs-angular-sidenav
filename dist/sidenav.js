@@ -37,14 +37,17 @@
     .directive('fsSidenavSide', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-side" ng-style="style"><a href ng-click="$parent.toggleMenu()" ng-show="$parent.collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div>',
+	        template: '<md-sidenav md-component-id="fs-sidenav" md-is-locked-open="$mdMedia(\'gt-sm\')" class="md-sidenav-left" ng-style="style"><div class="fs-sidenav-side"><a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div></md-sidenav>',
 	        transclude: true,
 	        replace: true,
 	        require: '^fsSidenav',
 	        link: function($scope, element, attr, controller, transclude) {
 
-            	if ($scope.$parent.width) {
-                    $scope.style = { width: $scope.$parent.width + 'px' };
+	        	$scope.collapse = controller.$scope.collapse;
+	        	$scope.toggleMenu = controller.$scope.toggleMenu;
+
+            	if (controller.$scope.width) {
+                    $scope.style = { width: controller.$scope.width + 'px' };
                 }
 	        }
 	    }
@@ -207,4 +210,21 @@
 })();
 
 
+(function () {
+    'use strict';
+
+    angular.module('fs-angular-sidenav')
+    .factory('fsSidenav', function($mdSidenav) {
+        var service = {
+            open: open
+        };
+
+        return service;
+
+        function open() {
+            $mdSidenav('fs-sidenav').toggle();
+        }
+
+    });
+})();
 

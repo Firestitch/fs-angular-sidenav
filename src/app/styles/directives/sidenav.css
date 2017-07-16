@@ -7,12 +7,16 @@
     width: 100%;
 }
 
+.fs-sidenav md-sidenav {
+	width: 100%;
+}
+
 .fs-sidenav .fs-sidenav-side {
     display: block;
     width: 100%;
 }
 
-.fs-sidenav.collapsed .fs-sidenav-side {
+.fs-sidenav.collapsed md-sidenav {
 	width: auto !important;
 	min-width: initial;
 	padding: 0;
