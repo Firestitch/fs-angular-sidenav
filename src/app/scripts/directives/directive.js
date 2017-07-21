@@ -116,7 +116,7 @@
 
 	        	function selectedUrl() {
 
-	        		if ($scope.href == $location.$$url) {
+	        		if ($scope.href == $location.$$url.replace(/\?.*/,'')) {
                 		select();
 
                 	} else if($scope.selectable) {
@@ -195,7 +195,7 @@
 	        	}
 
 	        	function selectedUrl() {
-					if($scope.href==$location.$$url) {
+					if($scope.href==$location.$$url.replace(/\?.*/,'')) {
 	                	select();
 	                } else if($scope.selectable) {
                 		angular.forEach($scope.selectable.split(','),function(regex) {
