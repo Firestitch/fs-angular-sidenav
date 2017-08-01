@@ -1,3 +1,4 @@
+
 (function() {
     'use strict';
 
@@ -14,29 +15,37 @@
     .directive('fsSidenav', function($compile) {
         return {
             restrict: 'E',
-            template: '<div class="fs-sidenav" ng-class="{ collapsed: collapsed }" ng-transclude></div>',
+            template: '<div class="fs-sidenav" ng-class="{ collapsed: collapsed }" layout="row" ng-transclude></div>',
             replace: true,
             transclude: true,
             scope: {
                 selected: '=?fsSelected',
                 selectedSubitem: '=?fsSelectedSubitem',
                 width: '=?fsWidth',
-                collapse: '=?fsCollapse'
+                collapse: '=?fsCollapse',
+                lockedOpen: '=?fsLockedOpen'
             },
             controller: function($scope) {
+
             	this.$scope = $scope;
+            	$scope.locked = { open: $scope.lockedOpen || $scope.lockedOpen===undefined };
             	this.selected = $scope.selected;
             	this.selectedSubitem = $scope.selectedSubitem;
             	$scope.toggleMenu = function() {
             		$scope.collapsed = !$scope.collapsed;
             	}
+
+            	$scope.$watch('lockedOpen',function(value) {
+            		$scope.locked.open = value;
+            	});
+
             }
         }
     })
     .directive('fsSidenavSide', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<md-sidenav md-component-id="fs-sidenav" md-is-locked-open="$mdMedia(\'gt-sm\')" class="md-sidenav-left" ng-style="style"><div class="fs-sidenav-side"><a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div></md-sidenav>',
+	        template: '<md-sidenav md-component-id="fs-sidenav" md-is-locked-open="locked.open" class="md-sidenav-left" ng-style="style"><div class="fs-sidenav-side"><a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div></md-sidenav>',
 	        transclude: true,
 	        replace: true,
 	        require: '^fsSidenav',
@@ -44,6 +53,7 @@
 
 	        	$scope.collapse = controller.$scope.collapse;
 	        	$scope.toggleMenu = controller.$scope.toggleMenu;
+	        	$scope.locked = controller.$scope.locked;
 
             	if (controller.$scope.width) {
                     $scope.style = { width: controller.$scope.width + 'px' };
@@ -215,4 +225,3 @@
 	    }
 	});
 })();
-

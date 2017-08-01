@@ -12,7 +12,7 @@
 
 .fs-sidenav md-sidenav {
 	width: 100%;
-	    min-width: 200px;
+	min-width: 200px;
 }
 
 .fs-sidenav .fs-sidenav-side {
@@ -110,4 +110,10 @@
     background: #888;
     color: #fff;
     width: 100%;
+}
+
+.fs-sidenav md-sidenav.md-locked-open-remove-active,
+.fs-sidenav md-sidenav.md-closed.md-locked-open-add-active,
+.fs-sidenav md-sidenav.md-closed.md-locked-open-add {
+    transition: none;
 }
