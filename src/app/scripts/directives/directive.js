@@ -13,7 +13,7 @@
      */
 
     angular.module('fs-angular-sidenav', ['fs-angular-util','fs-angular-theme'])
-    .directive('fsSidenav', function($mdMedia) {
+    .directive('fsSidenav', function($mdMedia, fsUtil) {
         return {
             restrict: 'E',
             template: '<div class="fs-sidenav" ng-class="{ collapsed: collapsed }" layout="row" ng-transclude></div>',
