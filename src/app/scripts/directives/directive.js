@@ -1,4 +1,5 @@
 
+
 (function() {
     'use strict';
 
@@ -12,7 +13,7 @@
      */
 
     angular.module('fs-angular-sidenav', ['fs-angular-util','fs-angular-theme'])
-    .directive('fsSidenav', function($compile) {
+    .directive('fsSidenav', function($mdMedia) {
         return {
             restrict: 'E',
             template: '<div class="fs-sidenav" ng-class="{ collapsed: collapsed }" layout="row" ng-transclude></div>',
@@ -28,17 +29,26 @@
             controller: function($scope) {
 
             	this.$scope = $scope;
-            	$scope.locked = { open: $scope.lockedOpen || $scope.lockedOpen===undefined };
             	this.selected = $scope.selected;
             	this.selectedSubitem = $scope.selectedSubitem;
+
+            	$scope.locked = {};
             	$scope.toggleMenu = function() {
             		$scope.collapsed = !$scope.collapsed;
             	}
 
-            	$scope.$watch('lockedOpen',function(value) {
-            		$scope.locked.open = value;
-            	});
-
+            	if($scope.lockedOpen===undefined || fsUtil.isString($scope.lockedOpen)) {
+            		var query = $scope.lockedOpen || 'gt-sm';
+            		$scope.$watch(function() {
+	            		return $mdMedia(query);
+	            	}, function(value) {
+				    	$scope.locked.open = value;
+				  	});
+				} else {
+	            	$scope.$watch('lockedOpen',function(value) {
+	            		$scope.locked.open = value;
+	            	});
+	           	}
             }
         }
     })
