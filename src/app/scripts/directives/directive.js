@@ -38,18 +38,23 @@
             		$scope.collapsed = !$scope.collapsed;
             	}
 
-            	if($scope.lockedOpen===undefined || fsUtil.isString($scope.lockedOpen)) {
-            		var query = $scope.lockedOpen || 'gt-sm';
-            		$scope.$watch(function() {
-	            		return $mdMedia(query);
-	            	}, function(value) {
-				    	$scope.locked.open = value;
-				  	});
-				} else {
-	            	$scope.$watch('lockedOpen',function(value) {
-	            		$scope.locked.open = value;
-	            	});
-	           	}
+            	$scope.$watch('lockedOpen',function(value) {
+            		if($scope.lockedOpen===undefined || fsUtil.isString(value)) {
+	            		var query = $scope.lockedOpen || 'gt-sm';
+
+	            		if($scope.watcher) {
+		            		$scope.watcher();
+		            	}
+
+	            		$scope.watcher = $scope.$watch(function() {
+		            		return $mdMedia(query);
+		            	}, function(value) {
+					    	$scope.locked.open = value;
+					  	});
+					} else {
+						$scope.locked.open = value;
+		           	}
+            	});
             }
         }
     })
