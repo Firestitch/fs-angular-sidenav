@@ -1,11 +1,7 @@
-
-.fs-sidenav {
-
-}
-
 .fs-sidenav md-sidenav {
 	width: 100%;
-	min-width: 200px;
+	min-width: initial;
+	flex: none;
 }
 
 .fs-sidenav md-sidenav {
