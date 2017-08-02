@@ -28,6 +28,7 @@
     padding: 15px;
     overflow: auto;
     vertical-align: top;
+    width: 100%;
 }
 
 .fs-sidenav:not(.locked-open) fs-sidenav-content {
