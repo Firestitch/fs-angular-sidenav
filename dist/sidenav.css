@@ -1,13 +1,7 @@
 
 .fs-sidenav {
-    box-sizing: border-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
+    display: table;
     width: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
-	height: 100%;
 }
 
 .fs-sidenav md-sidenav {
@@ -16,8 +10,13 @@
 }
 
 .fs-sidenav .fs-sidenav-side {
-    display: block;
-    width: 100%;
+	display: table-cell;
+    vertical-align: top;
+    width: 1px;
+}
+
+.fs-sidenav .fs-sidenav-side-wrap {
+	clear: both;
 }
 
 .fs-sidenav.collapsed md-sidenav {
@@ -26,17 +25,26 @@
 	padding: 0;
 }
 
-.fs-sidenav.collapsed .fs-sidenav-side .fs-sidenav-side-wrap {
-	display: none;
+
+.fs-sidenav fs-sidenav-content {
+    border-left: 1px solid #E1E1E1;
+    padding: 15px;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.fs-sidenav:not(.locked-open) .fs-sidenav-side {
+	width: 0;
+}
+
+.fs-sidenav:not(.locked-open) fs-sidenav-content {
+	border: 0;
 }
 
 .fs-sidenav .fs-sidenav-side .menu-toggle {
+    text-align: right;
     float: right;
     padding: 5px;
-}
-
-.fs-sidenav .fs-sidenav-side .fs-sidenav-side-wrap {
-    clear: both;
 }
 
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item {
@@ -72,18 +80,6 @@
     border-bottom: 1px solid #efefef;
 }
 
-.fs-sidenav fs-sidenav-content {
-    border-left: 1px solid #E1E1E1;
-    display: block;
-    padding: 15px;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    box-sizing: border-box;
-    min-height: 400px;
-}
-
-
 .fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
     display: block;
 }
@@ -101,7 +97,6 @@
 .fs-sidenav .fs-sidenav-side .fs-sidenav-subitem.selected {
 	background: rgba(0,0,0,.08);
 }
-
 
 .fs-sidenav fs-sidenav-section {
 	display: block;

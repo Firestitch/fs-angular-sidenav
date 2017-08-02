@@ -17,7 +17,7 @@
     .directive('fsSidenav', function($mdMedia, fsUtil) {
         return {
             restrict: 'E',
-            template: '<div class="fs-sidenav" ng-class="{ collapsed: collapsed }" layout="row" ng-transclude></div>',
+            template: '<div class="fs-sidenav" ng-class="{ \'locked-open\': locked.open, collapsed: collapsed }" layout="row" ng-transclude></div>',
             replace: true,
             transclude: true,
             scope: {
@@ -56,7 +56,14 @@
     .directive('fsSidenavSide', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<md-sidenav md-component-id="fs-sidenav" md-is-locked-open="locked.open" class="md-sidenav-left" ng-style="style"><div class="fs-sidenav-side"><a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle"><md-icon>menu</md-icon></a><div class="fs-sidenav-side-wrap" ng-transclude></div></div></md-sidenav>',
+	        template: '<div class="fs-sidenav-side">\
+	        		     <md-sidenav md-component-id="fs-sidenav" md-is-locked-open="locked.open" class="md-sidenav-left" ng-style="style">\
+	        			   <a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle">\
+	        				 <md-icon>menu</md-icon>\
+	        			   </a>\
+	        			   <div class="fs-sidenav-side-wrap" ng-transclude></div>\
+	        			 </md-sidenav>\
+	        	       </div>',
 	        transclude: true,
 	        replace: true,
 	        require: '^fsSidenav',
