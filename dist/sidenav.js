@@ -25,7 +25,8 @@
                 selectedSubitem: '=?fsSelectedSubitem',
                 width: '=?fsWidth',
                 collapse: '=?fsCollapse',
-                lockedOpen: '=?fsLockedOpen'
+                lockedOpen: '=?fsLockedOpen',
+                id: '@fsId'
             },
             controller: function($scope) {
 
@@ -56,23 +57,22 @@
     .directive('fsSidenavSide', function($location, fsUtil) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-side">\
-	        		     <md-sidenav md-component-id="fs-sidenav" md-is-locked-open="locked.open" class="md-sidenav-left" ng-style="style">\
-	        			   <a href ng-click="toggleMenu()" ng-show="collapse" class="menu-toggle">\
-	        				 <md-icon>menu</md-icon>\
-	        			   </a>\
+	        template: function(element) {
+
+	        	//HACK md-sidenav doesnt allow expression for id
+	        	var id = angular.element(element).parent().attr('fs-id') || 'fs-sidenav';
+
+	        	return ' <md-sidenav md-component-id="' + id + '" md-is-locked-open="ctrl.locked.open" class="md-sidenav-left" ng-style="style">\
+	        			   <a href ng-click="ctrl.toggleMenu()" ng-show="ctrl.collapse" class="menu-toggle"><md-icon>menu</md-icon></a>\
 	        			   <div class="fs-sidenav-side-wrap" ng-transclude></div>\
-	        			 </md-sidenav>\
-	        	       </div>',
+	        			</md-sidenav>'
+	        		},
 	        transclude: true,
 	        replace: true,
 	        require: '^fsSidenav',
 	        link: function($scope, element, attr, controller, transclude) {
 
-	        	$scope.collapse = controller.$scope.collapse;
-	        	$scope.toggleMenu = controller.$scope.toggleMenu;
-	        	$scope.locked = controller.$scope.locked;
-
+	        	$scope.ctrl = controller.$scope;
             	if (controller.$scope.width) {
                     $scope.style = { width: controller.$scope.width + 'px' };
                 }

@@ -1,7 +1,6 @@
 
 .fs-sidenav {
-    display: table;
-    width: 100%;
+
 }
 
 .fs-sidenav md-sidenav {
@@ -9,10 +8,8 @@
 	min-width: 200px;
 }
 
-.fs-sidenav .fs-sidenav-side {
-	display: table-cell;
+.fs-sidenav md-sidenav {
     vertical-align: top;
-    width: 1px;
 }
 
 .fs-sidenav .fs-sidenav-side-wrap {
@@ -29,31 +26,27 @@
 .fs-sidenav fs-sidenav-content {
     border-left: 1px solid #E1E1E1;
     padding: 15px;
-    display: table-cell;
+    overflow: auto;
     vertical-align: top;
-}
-
-.fs-sidenav:not(.locked-open) .fs-sidenav-side {
-	width: 0;
 }
 
 .fs-sidenav:not(.locked-open) fs-sidenav-content {
 	border: 0;
 }
 
-.fs-sidenav .fs-sidenav-side .menu-toggle {
+.fs-sidenav md-sidenav .menu-toggle {
     text-align: right;
     float: right;
     padding: 5px;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item {
+.fs-sidenav md-sidenav .fs-sidenav-item {
     display: block;
     cursor: pointer;
     clear: both;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item a {
+.fs-sidenav .fs-sidenav-item a {
     color: inherit;
     text-decoration: inherit;
     display: block;
@@ -62,25 +55,25 @@
     display: block;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item a md-icon {
+.fs-sidenav .fs-sidenav-item a md-icon {
 	margin-right: 7px;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item > a {
+.fs-sidenav .fs-sidenav-item > a {
     padding: 10px 25px 10px 35px;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item[fs-disabled] {
+.fs-sidenav .fs-sidenav-item[fs-disabled] {
     color: #ccc;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected > a {
+.fs-sidenav .fs-sidenav-item.selected > a {
     background-color: rgba(0,0,0,.035);
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-item.selected .fs-sidenav-subitem {
+.fs-sidenav .fs-sidenav-item.selected .fs-sidenav-subitem {
     display: block;
 }
 
@@ -94,7 +87,7 @@
     padding-left: 65px;
 }
 
-.fs-sidenav .fs-sidenav-side .fs-sidenav-subitem.selected {
+.fs-sidenav .fs-sidenav-subitem.selected {
 	background: rgba(0,0,0,.08);
 }
 
