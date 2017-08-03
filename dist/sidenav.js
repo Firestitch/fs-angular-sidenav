@@ -40,13 +40,12 @@
             	}
 
             	$scope.$watch('lockedOpen',function(value) {
-            		if($scope.lockedOpen===undefined || fsUtil.isString(value)) {
-	            		var query = $scope.lockedOpen || 'gt-sm';
 
 	            		if($scope.watcher) {
 		            		$scope.watcher();
 		            	}
-
+            		if($scope.lockedOpen===undefined || fsUtil.isString(value)) {
+	            		var query = $scope.lockedOpen || 'gt-sm';
 	            		$scope.watcher = $scope.$watch(function() {
 		            		return $mdMedia(query);
 		            	}, function(value) {
