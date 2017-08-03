@@ -1,6 +1,6 @@
-
 .fs-sidenav {
-
+	height: 100%;
+	overflow-y: auto;
 }
 
 .fs-sidenav md-sidenav {
