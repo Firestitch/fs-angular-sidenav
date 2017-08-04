@@ -40,10 +40,10 @@
             	}
 
             	$scope.$watch('lockedOpen',function(value) {
+            		if($scope.watcher) {
+	            		$scope.watcher();
+	            	}
 
-	            		if($scope.watcher) {
-		            		$scope.watcher();
-		            	}
             		if($scope.lockedOpen===undefined || fsUtil.isString(value)) {
 	            		var query = $scope.lockedOpen || 'gt-sm';
 	            		$scope.watcher = $scope.$watch(function() {
@@ -67,7 +67,6 @@
 	        	var id = angular.element(element).parent().attr('fs-id') || 'fs-sidenav';
 
 	        	return ' <md-sidenav md-component-id="' + id + '" md-is-locked-open="ctrl.locked.open" class="md-sidenav-left" ng-style="style">\
-	        			   <a href ng-click="ctrl.toggleMenu()" ng-show="ctrl.collapse" class="menu-toggle"><md-icon>menu</md-icon></a>\
 	        			   <div class="fs-sidenav-side-wrap" ng-transclude></div>\
 	        			</md-sidenav>'
 	        		},
