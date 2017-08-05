@@ -107,3 +107,7 @@
 .fs-sidenav md-sidenav.md-closed.md-locked-open-add {
     transition: none;
 }
+
+.fs-sidenav md-sidenav:not(.md-closed):not(.md-locked-open) {
+	z-index: 80;
+}
