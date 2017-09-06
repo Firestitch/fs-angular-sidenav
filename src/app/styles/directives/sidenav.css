@@ -60,7 +60,7 @@
 }
 
 .fs-sidenav .fs-sidenav-item > a {
-    padding: 10px 35px;
+    padding: 10px 30px;
 }
 
 .fs-sidenav .fs-sidenav-item[fs-disabled] {
@@ -76,13 +76,14 @@
 }
 
 .fs-sidenav .fs-sidenav-subitem a {
-    font-size: smaller;
+    font-size: 13px;
     padding: 10px 0;
     padding-left: 45px;
+    color: #2d2d2d;
 }
 
 .fs-sidenav .fs-sidenav-item.has-icon .fs-sidenav-subitem a {
-    padding-left: 65px;
+    padding-left: 62px;
 }
 
 .fs-sidenav fs-sidenav-section {
