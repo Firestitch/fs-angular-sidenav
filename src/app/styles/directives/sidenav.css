@@ -53,9 +53,6 @@
     color: inherit;
     text-decoration: inherit;
     display: block;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    display: block;
 }
 
 .fs-sidenav .fs-sidenav-item a md-icon {
@@ -71,9 +68,7 @@
 }
 
 .fs-sidenav .fs-sidenav-item.selected > a {
-    background-color: rgba(0,0,0,.035);
-    border-top: 1px solid #efefef;
-    border-bottom: 1px solid #efefef;
+    background-color: #eee;
 }
 
 .fs-sidenav .fs-sidenav-item.selected .fs-sidenav-subitem {
@@ -91,7 +86,7 @@
 }
 
 .fs-sidenav .fs-sidenav-subitem.selected {
-	background: rgba(0,0,0,.08);
+	font-weight: bold;
 }
 
 .fs-sidenav fs-sidenav-section {
