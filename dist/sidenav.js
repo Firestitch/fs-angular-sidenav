@@ -1,6 +1,7 @@
 
 
 
+
 (function() {
     'use strict';
 
@@ -167,18 +168,10 @@
 	        }
 	    }
 	})
-	.directive('fsSidenavSection', function(fsTheme) {
+	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope, fsSidenav, fsTheme) {
     	return {
 	        restrict: 'E',
-	        link: function($scope, element, attr, controller) {
-	        	angular.element(element).css('backgroundColor',fsTheme.primaryHex());
-	        }
-	    }
-	})
-	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope, fsSidenav) {
-    	return {
-	        restrict: 'E',
-	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
+	        template: '<div class="fs-sidenav-subitem" ng-style="selected && { backgroundColor: color }" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
 	        transclude: true,
 	        replace: true,
 	        scope: {
@@ -190,6 +183,8 @@
 	        },
 	        require: ['^fsSidenav','^fsSidenavItem'],
 	        controller: function($scope) {
+	        	$scope.color = fsTheme.primaryRGBa(.2);
+
 	        	if(!$scope.name) {
 	        		$scope.name = fsUtil.guid();
 	        	}
@@ -246,7 +241,6 @@
 	    }
 	});
 })();
-
 (function () {
     'use strict';
 
