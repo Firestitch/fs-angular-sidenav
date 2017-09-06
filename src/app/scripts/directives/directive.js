@@ -170,7 +170,7 @@
 	.directive('fsSidenavSubitem', function($location, fsUtil, $rootScope, fsSidenav, fsTheme) {
     	return {
 	        restrict: 'E',
-	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }" ng-style="selected && { color: color }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-transclude></a></div>',
+	        template: '<div class="fs-sidenav-subitem" ng-class="{ selected: selected }"><a ng-href="{{href}}" ng-click="clicked(e)" ng-style="selected && { color: color }" ng-transclude></a></div>',
 	        transclude: true,
 	        replace: true,
 	        scope: {

@@ -77,16 +77,12 @@
 
 .fs-sidenav .fs-sidenav-subitem a {
     font-size: smaller;
-    padding: 8px 0;
+    padding: 10px 0;
     padding-left: 45px;
 }
 
 .fs-sidenav .fs-sidenav-item.has-icon .fs-sidenav-subitem a {
     padding-left: 65px;
-}
-
-.fs-sidenav .fs-sidenav-subitem.selected {
-	font-weight: bold;
 }
 
 .fs-sidenav fs-sidenav-section {
