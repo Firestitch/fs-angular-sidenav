@@ -82,6 +82,17 @@
 	        }
 	    }
 	})
+	.directive('fsSidenavSection', function(fsTheme) {
+    	return {
+	        restrict: 'E',
+	        template: '<div class="fs-sidenav-section" ng-style="{ backgroundColor: color }" ng-transclude></div>',
+	        transclude: true,
+	        replace: true,
+	        controller: function($scope) {
+	        	$scope.color = fsTheme.primaryHex();
+	        }
+	    }
+	})
 	.directive('fsSidenavItem', function($location, fsUtil, $rootScope, fsSidenav) {
     	return {
 	        restrict: 'E',

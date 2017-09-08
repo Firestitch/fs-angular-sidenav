@@ -5,12 +5,13 @@ angular
     'config',
     'ui.router',
     'ngMaterial',
-    'fs-angular-sidenav'
+    'fs-angular-sidenav',
+    'fs-angular-theme'
 ])
-.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $locationProvider, fsThemeProvider) {
 
 	$locationProvider.html5Mode(true);
-
+    fsThemeProvider.options({ primary: '546E7A', accent: '546E7A' });
     $urlRouterProvider.otherwise('/404');
     $urlRouterProvider.when('', '/demo');
     $urlRouterProvider.when('/', '/demo');
