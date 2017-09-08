@@ -86,7 +86,7 @@
     padding-left: 62px;
 }
 
-.fs-sidenav fs-sidenav-section {
+.fs-sidenav .fs-sidenav-section {
 	display: block;
 	padding: 13px 15px;
     box-sizing: border-box;
